@@ -1,0 +1,273 @@
+{
+  "name": "Lab Panel Price Scraper",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 6
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily Price Check",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/panels.json",
+        "options": {}
+      },
+      "id": "load-panels",
+      "name": "Load Current Panels",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "split-panels",
+      "name": "Process Each Panel",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "headers": {
+            "User-Agent": "Mozilla/5.0 (compatible; LabPriceBot/1.0)"
+          },
+          "timeout": 10000
+        }
+      },
+      "id": "scrape-panel",
+      "name": "Scrape Panel Page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract price based on provider\nconst html = $input.first().binary.data.toString();\nconst currentPanel = $input.first().json;\n\nlet extractedPrice = null;\n\n// Quest Diagnostics price extraction\nif (currentPanel.provider === \"Quest Diagnostics\") {\n  const patterns = [\n    /\\$(\\d+(?:\\.\\d{2})?)/g,\n    /price[\"\\s:]+\\$?(\\d+(?:\\.\\d{2})?)/gi,\n    /\"price\"\\s*:\\s*\"?\\$?(\\d+(?:\\.\\d{2})?)\"/gi\n  ];\n  \n  for (const pattern of patterns) {\n    const matches = html.match(pattern);\n    if (matches && matches.length > 0) {\n      const priceStr = matches[0].replace(/[^\\d.]/g, '');\n      extractedPrice = parseFloat(priceStr);\n      if (!isNaN(extractedPrice) && extractedPrice > 0) break;\n    }\n  }\n}\n\n// LabCorp price extraction\nif (currentPanel.provider === \"LabCorp\") {\n  const patterns = [\n    /\"price\"\\s*:\\s*(\\d+(?:\\.\\d{2})?)/gi,\n    /\\$(\\d+(?:\\.\\d{2})?)/g,\n    /price-amount[\"\\s>]*\\$?(\\d+(?:\\.\\d{2})?)/gi\n  ];\n  \n  for (const pattern of patterns) {\n    const matches = html.match(pattern);\n    if (matches && matches.length > 0) {\n      const priceStr = matches[0].replace(/[^\\d.]/g, '');\n      extractedPrice = parseFloat(priceStr);\n      if (!isNaN(extractedPrice) && extractedPrice > 0) break;\n    }\n  }\n}\n\n// Return result\nif (extractedPrice !== null && extractedPrice > 0) {\n  const priceChanged = Math.abs(extractedPrice - currentPanel.price) > 0.01;\n  \n  return [{\n    json: {\n      id: currentPanel.id,\n      currentPrice: currentPanel.price,\n      scrapedPrice: extractedPrice,\n      priceChanged,\n      provider: currentPanel.provider,\n      name: currentPanel.name,\n      url: currentPanel.url,\n      timestamp: new Date().toISOString()\n    }\n  }];\n} else {\n  return [{\n    json: {\n      id: currentPanel.id,\n      currentPrice: currentPanel.price,\n      scrapedPrice: currentPanel.price,\n      priceChanged: false,\n      provider: currentPanel.provider,\n      name: currentPanel.name,\n      url: currentPanel.url,\n      timestamp: new Date().toISOString(),\n      error: \"Price not found\"\n    }\n  }];\n}"
+      },
+      "id": "extract-price",
+      "name": "Extract Price",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.priceChanged }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "check-price-change",
+      "name": "Price Changed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1340, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/YOUR_USERNAME/YOUR_REPO/contents/panels.json",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "get-current-file",
+      "name": "Get Current File SHA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1560, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Aggregate all price changes and update panels.json\nconst allItems = $input.all();\nconst priceChanges = allItems.filter(item => item.json.priceChanged);\n\nif (priceChanges.length === 0) {\n  return [];\n}\n\n// Load current panels and update with new prices\nconst currentFileData = $node[\"Get Current File SHA\"].json;\nconst currentPanels = JSON.parse(atob(currentFileData.content));\n\n// Update panels with new prices\npriceChanges.forEach(change => {\n  const panelIndex = currentPanels.findIndex(panel => panel.id === change.json.id);\n  if (panelIndex !== -1) {\n    currentPanels[panelIndex].price = change.json.scrapedPrice;\n    currentPanels[panelIndex].lastPriceUpdate = change.json.timestamp;\n  }\n});\n\n// Create summary for notification\nlet summary = `🔄 ${priceChanges.length} price change(s) detected:\\n\\n`;\npriceChanges.forEach(change => {\n  const direction = change.json.scrapedPrice > change.json.currentPrice ? \"📈\" : \"📉\";\n  const diff = Math.abs(change.json.scrapedPrice - change.json.currentPrice);\n  const percent = ((diff / change.json.currentPrice) * 100).toFixed(1);\n  summary += `${direction} ${change.json.name}\\n   $${change.json.currentPrice} → $${change.json.scrapedPrice} (${percent}%)\\n\\n`;\n});\n\nreturn [{\n  json: {\n    updatedPanels: currentPanels,\n    currentFileSha: currentFileData.sha,\n    summary,\n    changesCount: priceChanges.length\n  }\n}];"
+      },
+      "id": "prepare-update",
+      "name": "Prepare GitHub Update",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1780, 200]
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/YOUR_USERNAME/YOUR_REPO/contents/panels.json",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "httpMethod": "PUT",
+        "jsonParameters": true,
+        "parametersJson": "{\n  \"message\": \"🔄 Automated price update - {{ $now.format('yyyy-MM-dd HH:mm:ss') }}\",\n  \"content\": \"{{ $base64(JSON.stringify($json.updatedPanels, null, 2)) }}\",\n  \"sha\": \"{{ $json.currentFileSha }}\"\n}",
+        "options": {}
+      },
+      "id": "update-github",
+      "name": "Update GitHub Repository",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [2000, 200]
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/YOUR_USERNAME/YOUR_REPO/contents/last-updated.json",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "get-timestamp-file",
+      "name": "Get Timestamp File",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [2220, 200]
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/YOUR_USERNAME/YOUR_REPO/contents/last-updated.json",
+        "authentication": "genericCredentialType", 
+        "genericAuthType": "httpHeaderAuth",
+        "httpMethod": "PUT",
+        "jsonParameters": true,
+        "parametersJson": "{\n  \"message\": \"⏰ Update timestamp - {{ $now.format('yyyy-MM-dd HH:mm:ss') }}\",\n  \"content\": \"{{ $base64('{\"lastUpdatedISO\":\"' + $now.format('yyyy-MM-ddTHH:mm:ss.sssZ') + '\"}') }}\",\n  \"sha\": \"{{ $node['Get Timestamp File'].json.sha }}\"\n}",
+        "options": {}
+      },
+      "id": "update-timestamp",
+      "name": "Update Timestamp",
+      "type": "n8n-nodes-base.httpRequest", 
+      "typeVersion": 4.1,
+      "position": [2440, 200]
+    }
+  ],
+  "connections": {
+    "Daily Price Check": {
+      "main": [
+        [
+          {
+            "node": "Load Current Panels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Current Panels": {
+      "main": [
+        [
+          {
+            "node": "Process Each Panel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Each Panel": {
+      "main": [
+        [
+          {
+            "node": "Scrape Panel Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Panel Page": {
+      "main": [
+        [
+          {
+            "node": "Extract Price",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Price": {
+      "main": [
+        [
+          {
+            "node": "Price Changed?",
+            "type": "main", 
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Price Changed?": {
+      "main": [
+        [
+          {
+            "node": "Get Current File SHA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Current File SHA": {
+      "main": [
+        [
+          {
+            "node": "Prepare GitHub Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare GitHub Update": {
+      "main": [
+        [
+          {
+            "node": "Update GitHub Repository",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update GitHub Repository": {
+      "main": [
+        [
+          {
+            "node": "Get Timestamp File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Timestamp File": {
+      "main": [
+        [
+          {
+            "node": "Update Timestamp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "timezone": "America/New_York"
+  },
+  "versionId": "1.0.0"
+}
