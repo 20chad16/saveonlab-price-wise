@@ -15,7 +15,7 @@ export type MarkerCategory =
   | "Comprehensive Panels";
 
 export type Marker = 
-  // Basic Health
+  // Basic Health - Panel Components
   | "CBC"
   | "CMP"
   | "Lipid Panel"
@@ -23,6 +23,62 @@ export type Marker =
   | "Thyroid Panel"
   | "Urinalysis"
   | "Electrolyte Panel"
+  
+  // Lipid Panel Components
+  | "Total Cholesterol"
+  | "HDL Cholesterol"
+  | "LDL Cholesterol"
+  | "Triglycerides"
+  | "Non-HDL Cholesterol"
+  | "Total Cholesterol/HDL Ratio"
+  | "LDL/HDL Ratio"
+  
+  // CBC Components
+  | "White Blood Cell Count"
+  | "Red Blood Cell Count"
+  | "Hemoglobin"
+  | "Hematocrit"
+  | "Mean Corpuscular Volume"
+  | "Mean Corpuscular Hemoglobin"
+  | "Mean Corpuscular Hemoglobin Concentration"
+  | "Red Cell Distribution Width"
+  | "Platelet Count"
+  | "Mean Platelet Volume"
+  | "Neutrophils"
+  | "Lymphocytes"
+  | "Monocytes"
+  | "Eosinophils"
+  | "Basophils"
+  
+  // CMP Components
+  | "Glucose"
+  | "BUN"
+  | "Creatinine"
+  | "eGFR"
+  | "BUN/Creatinine Ratio"
+  | "Sodium"
+  | "Potassium"
+  | "Chloride"
+  | "Carbon Dioxide"
+  | "Calcium"
+  | "Total Protein"
+  | "Albumin"
+  | "Globulin"
+  | "A/G Ratio"
+  | "Bilirubin Total"
+  | "Alkaline Phosphatase"
+  | "AST"
+  | "ALT"
+  
+  // Basic Metabolic Panel Components
+  | "BMP Glucose"
+  | "BMP BUN"
+  | "BMP Creatinine"
+  | "BMP eGFR"
+  | "BMP Sodium"
+  | "BMP Potassium"
+  | "BMP Chloride"
+  | "BMP Carbon Dioxide"
   
   // Heart Health
   | "hs-CRP"
@@ -465,7 +521,16 @@ export const panels: Panel[] = [
     name: "Complete Wellness Panel",
     price: 149,
     drawFee: 25,
-    markers: ["CBC", "CMP", "Lipid Panel", "TSH", "Free T4", "Vitamin D 25-OH", "Hemoglobin A1c"],
+    markers: [
+      // CBC components
+      "CBC", "White Blood Cell Count", "Red Blood Cell Count", "Hemoglobin", "Hematocrit", "Mean Corpuscular Volume", "Mean Corpuscular Hemoglobin", "Mean Corpuscular Hemoglobin Concentration", "Red Cell Distribution Width", "Platelet Count", "Mean Platelet Volume", "Neutrophils", "Lymphocytes", "Monocytes", "Eosinophils", "Basophils",
+      // CMP components  
+      "CMP", "Glucose", "BUN", "Creatinine", "eGFR", "BUN/Creatinine Ratio", "Sodium", "Potassium", "Chloride", "Carbon Dioxide", "Calcium", "Total Protein", "Albumin", "Globulin", "A/G Ratio", "Bilirubin Total", "Alkaline Phosphatase", "AST", "ALT",
+      // Lipid Panel components
+      "Lipid Panel", "Total Cholesterol", "HDL Cholesterol", "LDL Cholesterol", "Triglycerides", "Non-HDL Cholesterol", "Total Cholesterol/HDL Ratio", "LDL/HDL Ratio",
+      // Individual markers
+      "TSH", "Free T4", "Vitamin D 25-OH", "Hemoglobin A1c"
+    ],
     url: "https://www.ultalabtests.com/partner/complete-wellness",
     description: "Comprehensive health screening covering blood, metabolic, thyroid, and vitamin D status"
   },
@@ -561,7 +626,10 @@ export const panels: Panel[] = [
     name: "Advanced Cardiac Risk Assessment",
     price: 129,
     drawFee: 20,
-    markers: ["Lipid Panel", "hs-CRP", "Homocysteine", "Lipoprotein(a)", "Apolipoprotein B"],
+    markers: [
+      "Lipid Panel", "Total Cholesterol", "HDL Cholesterol", "LDL Cholesterol", "Triglycerides", "Non-HDL Cholesterol", "Total Cholesterol/HDL Ratio", "LDL/HDL Ratio",
+      "hs-CRP", "Homocysteine", "Lipoprotein(a)", "Apolipoprotein B"
+    ],
     url: "https://www.discountedlabs.com/affiliate/cardiac-risk",
     description: "Advanced cardiovascular risk markers beyond standard cholesterol testing"
   },
