@@ -1,5 +1,5 @@
 
-import { markers, panels, markerCategories, lastUpdatedISO, type Marker, type Panel, type MarkerCategory } from '@/data/labData';
+import { type Marker, type Panel, type MarkerCategory } from '@/data/labData';
 
 export interface LabDataResponse {
   markers: Marker[];
@@ -12,6 +12,62 @@ class LabDataService {
   private cache: LabDataResponse | null = null;
   private readonly CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
   private cacheTimestamp: number = 0;
+  
+  // Configuration for external data sources
+  private readonly DATA_SOURCES = {
+    // GitHub raw JSON endpoints (replace with your actual repo URLs)
+    github: {
+      markers: 'https://raw.githubusercontent.com/your-username/lab-data/main/markers.json',
+      panels: 'https://raw.githubusercontent.com/your-username/lab-data/main/panels.json',
+      markerCategories: 'https://raw.githubusercontent.com/your-username/lab-data/main/marker-categories.json',
+      lastUpdated: 'https://raw.githubusercontent.com/your-username/lab-data/main/last-updated.json'
+    },
+    // Fallback to static data
+    fallback: true
+  };
+
+  private async fetchFromGitHub(): Promise<LabDataResponse> {
+    try {
+      const [markersRes, panelsRes, categoriesRes, lastUpdatedRes] = await Promise.all([
+        fetch(this.DATA_SOURCES.github.markers),
+        fetch(this.DATA_SOURCES.github.panels),
+        fetch(this.DATA_SOURCES.github.markerCategories),
+        fetch(this.DATA_SOURCES.github.lastUpdated)
+      ]);
+
+      if (!markersRes.ok || !panelsRes.ok || !categoriesRes.ok || !lastUpdatedRes.ok) {
+        throw new Error('Failed to fetch data from GitHub');
+      }
+
+      const [markers, panels, markerCategories, lastUpdatedData] = await Promise.all([
+        markersRes.json(),
+        panelsRes.json(),
+        categoriesRes.json(),
+        lastUpdatedRes.json()
+      ]);
+
+      return {
+        markers,
+        panels,
+        markerCategories,
+        lastUpdatedISO: lastUpdatedData.lastUpdatedISO
+      };
+    } catch (error) {
+      console.error('Error fetching from GitHub:', error);
+      throw error;
+    }
+  }
+
+  private async fetchFallbackData(): Promise<LabDataResponse> {
+    // Dynamic import of static data as fallback
+    const { markers, panels, markerCategories, lastUpdatedISO } = await import('@/data/labData');
+    return {
+      markers,
+      panels,
+      markerCategories,
+      lastUpdatedISO
+    };
+  }
 
   async getLabData(): Promise<LabDataResponse> {
     // Check if we have valid cached data
@@ -19,20 +75,28 @@ class LabDataService {
       return this.cache;
     }
 
-    // For now, return static data with a simulated delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    const response: LabDataResponse = {
-      markers,
-      panels,
-      markerCategories,
-      lastUpdatedISO
-    };
-
-    this.cache = response;
-    this.cacheTimestamp = Date.now();
-    
-    return response;
+    try {
+      // Try to fetch from external sources first
+      const response = await this.fetchFromGitHub();
+      
+      this.cache = response;
+      this.cacheTimestamp = Date.now();
+      
+      return response;
+    } catch (error) {
+      console.warn('Failed to fetch from external sources, falling back to static data:', error);
+      
+      if (this.DATA_SOURCES.fallback) {
+        const response = await this.fetchFallbackData();
+        
+        this.cache = response;
+        this.cacheTimestamp = Date.now();
+        
+        return response;
+      }
+      
+      throw error;
+    }
   }
 
   clearCache(): void {
