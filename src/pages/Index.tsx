@@ -1,11 +1,15 @@
 import { useMemo, useState } from "react";
-import { optimizePanels, lastUpdatedISO, type Marker } from "@/data/labData";
+import { optimizePanels, type Marker } from "@/data/labData";
+import { useLabData } from "@/hooks/useLabData";
 import { MarkerSelector } from "@/components/MarkerSelector";
 import { ResultsPanel } from "@/components/ResultsPanel";
 import { InfoSidebar } from "@/components/InfoSidebar";
 import { Footer } from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { RefreshCw } from "lucide-react";
 
 const Index = () => {
+  const { data: labData, loading, error, refreshData } = useLabData();
   const [selected, setSelected] = useState<Marker[]>([]);
   const [optimized, setOptimized] = useState(() => optimizePanels([]));
 
@@ -20,8 +24,9 @@ const Index = () => {
   };
 
   const lastUpdated = useMemo(() => {
+    if (!labData?.lastUpdatedISO) return "Recently";
     try {
-      return new Date(lastUpdatedISO).toLocaleDateString(undefined, {
+      return new Date(labData.lastUpdatedISO).toLocaleDateString(undefined, {
         year: "numeric",
         month: "short",
         day: "2-digit",
@@ -29,7 +34,32 @@ const Index = () => {
     } catch {
       return "Recently";
     }
-  }, []);
+  }, [labData?.lastUpdatedISO]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
+          <p className="text-muted-foreground">Loading lab data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !labData) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center max-w-md">
+          <p className="text-destructive mb-4">Failed to load lab data</p>
+          <Button onClick={refreshData} variant="outline">
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Retry
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -49,9 +79,20 @@ const Index = () => {
               <span>✓ Draw Fees Included</span>
               <span>✓ Instant Price Optimization</span>
             </div>
-            <p className="mt-4 text-xs text-muted-foreground">
-              Pricing data last updated: {lastUpdated}
-            </p>
+            <div className="mt-4 flex items-center justify-center gap-4">
+              <p className="text-xs text-muted-foreground">
+                Pricing data last updated: {lastUpdated}
+              </p>
+              <Button
+                onClick={refreshData}
+                variant="ghost"
+                size="sm"
+                className="text-xs h-6 px-2"
+              >
+                <RefreshCw className="h-3 w-3 mr-1" />
+                Refresh
+              </Button>
+            </div>
           </div>
         </div>
       </header>
