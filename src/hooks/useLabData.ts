@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { labDataService, type LabDataResponse } from '@/services/labDataService';
 import { useToast } from '@/hooks/use-toast';

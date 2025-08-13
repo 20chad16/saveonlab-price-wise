@@ -1,71 +1,36 @@
-import { type Marker, type Panel } from "@/data/labData";
+
+import { labData, type Marker, type Lab } from '@/data/labData';
 
 export interface LabDataResponse {
   markers: Marker[];
-  panels: Panel[];
-  markerCategories: Record<string, Marker[]>;
+  labs: Lab[];
   lastUpdatedISO: string;
 }
 
 class LabDataService {
-  private static instance: LabDataService;
   private cache: LabDataResponse | null = null;
-  private cacheTimestamp: number = 0;
   private readonly CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
-
-  static getInstance(): LabDataService {
-    if (!LabDataService.instance) {
-      LabDataService.instance = new LabDataService();
-    }
-    return LabDataService.instance;
-  }
+  private cacheTimestamp: number = 0;
 
   async getLabData(): Promise<LabDataResponse> {
-    // Check cache first
-    const now = Date.now();
-    if (this.cache && (now - this.cacheTimestamp) < this.CACHE_DURATION) {
+    // Check if we have valid cached data
+    if (this.cache && Date.now() - this.cacheTimestamp < this.CACHE_DURATION) {
       return this.cache;
     }
 
-    try {
-      // For now, fall back to static data. Later we'll replace this with API call
-      const { markers, panels, markerCategories, lastUpdatedISO } = await import("@/data/labData");
-      
-      this.cache = {
-        markers,
-        panels,
-        markerCategories,
-        lastUpdatedISO
-      };
-      this.cacheTimestamp = now;
-      
-      return this.cache;
-    } catch (error) {
-      console.error('Failed to fetch lab data:', error);
-      throw new Error('Unable to load lab data');
-    }
-  }
+    // For now, return static data with a simulated delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    const response: LabDataResponse = {
+      markers: labData.markers,
+      labs: labData.labs,
+      lastUpdatedISO: new Date().toISOString()
+    };
 
-  // Method to fetch from remote JSON (for when you set up GitHub hosting)
-  async fetchFromRemote(url: string): Promise<LabDataResponse> {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      
-      // Cache the remote data
-      this.cache = data;
-      this.cacheTimestamp = Date.now();
-      
-      return data;
-    } catch (error) {
-      console.error('Failed to fetch remote lab data:', error);
-      // Fall back to static data
-      return this.getLabData();
-    }
+    this.cache = response;
+    this.cacheTimestamp = Date.now();
+    
+    return response;
   }
 
   clearCache(): void {
@@ -74,4 +39,4 @@ class LabDataService {
   }
 }
 
-export const labDataService = LabDataService.getInstance();
+export const labDataService = new LabDataService();

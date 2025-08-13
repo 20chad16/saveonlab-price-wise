@@ -1,3 +1,4 @@
+
 import { useMemo, useState } from "react";
 import { optimizePanels, type Marker } from "@/data/labData";
 import { useLabData } from "@/hooks/useLabData";
