@@ -3,6 +3,7 @@ import { optimizePanels, lastUpdatedISO, type Marker } from "@/data/labData";
 import { MarkerSelector } from "@/components/MarkerSelector";
 import { ResultsPanel } from "@/components/ResultsPanel";
 import { InfoSidebar } from "@/components/InfoSidebar";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   const [selected, setSelected] = useState<Marker[]>([]);
@@ -74,6 +75,7 @@ const Index = () => {
           </aside>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

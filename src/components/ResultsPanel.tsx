@@ -35,14 +35,19 @@ export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
           <div className="text-center md:text-left">
             <div className="text-2xl font-bold text-primary">${optimized.totalWithDrawFees.toFixed(2)}</div>
             <div className="text-sm text-muted-foreground">Optimized Total</div>
-            <div className="text-xs text-muted-foreground mt-1">Including draw fees</div>
+            <div className="text-xs text-muted-foreground mt-1">
+              Tests: ${optimized.total.toFixed(2)} + Draw fees: ${(optimized.totalWithDrawFees - optimized.total).toFixed(2)}
+            </div>
           </div>
           
           <div className="text-center">
             <div className="text-lg font-semibold text-muted-foreground line-through">
               ${optimized.individualCost.toFixed(2)}
             </div>
-            <div className="text-sm text-muted-foreground">Individual Cost</div>
+            <div className="text-sm text-muted-foreground">If Bought Separately</div>
+            <div className="text-xs text-muted-foreground mt-1">
+              Each test from cheapest lab + their draw fees
+            </div>
           </div>
           
           <div className="text-center md:text-right">
@@ -55,6 +60,9 @@ export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
             <div className="text-sm text-muted-foreground">
               {optimized.individualCost > 0 ? 
                 Math.round((optimized.savings / optimized.individualCost) * 100) : 0}% savings
+            </div>
+            <div className="text-xs text-muted-foreground mt-1">
+              By using optimized panels
             </div>
           </div>
         </div>
@@ -130,9 +138,11 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
           
           <div className="text-right">
             <div className="text-xl font-bold text-foreground">${panel.price}</div>
-            <div className="text-xs text-muted-foreground">+ ${panel.drawFee} draw fee</div>
+            <div className="text-xs text-muted-foreground">
+              + ${panel.drawFee} draw fee (one per provider)
+            </div>
             <div className="text-sm font-medium text-muted-foreground">
-              Total: ${(panel.price + panel.drawFee).toFixed(2)}
+              Panel Total: ${(panel.price + panel.drawFee).toFixed(2)}
             </div>
           </div>
         </div>
