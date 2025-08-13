@@ -1,9 +1,10 @@
 
-import { labData, type Marker, type Lab } from '@/data/labData';
+import { markers, panels, markerCategories, lastUpdatedISO, type Marker, type Panel, type MarkerCategory } from '@/data/labData';
 
 export interface LabDataResponse {
   markers: Marker[];
-  labs: Lab[];
+  panels: Panel[];
+  markerCategories: Record<MarkerCategory, Marker[]>;
   lastUpdatedISO: string;
 }
 
@@ -22,9 +23,10 @@ class LabDataService {
     await new Promise(resolve => setTimeout(resolve, 500));
     
     const response: LabDataResponse = {
-      markers: labData.markers,
-      labs: labData.labs,
-      lastUpdatedISO: new Date().toISOString()
+      markers,
+      panels,
+      markerCategories,
+      lastUpdatedISO
     };
 
     this.cache = response;
