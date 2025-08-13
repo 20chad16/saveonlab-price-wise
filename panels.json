@@ -1,0 +1,343 @@
+[
+  {
+    "id": "quest-comprehensive-metabolic-panel",
+    "provider": "Quest Diagnostics",
+    "name": "Comprehensive Metabolic Panel (CMP)",
+    "price": 29,
+    "drawFee": 12,
+    "markers": [
+      "Glucose, Fasting",
+      "Blood Urea Nitrogen (BUN)",
+      "Creatinine, Serum",
+      "eGFR (Estimated Glomerular Filtration Rate)",
+      "Sodium",
+      "Potassium",
+      "Chloride",
+      "Carbon Dioxide (CO2)",
+      "Calcium",
+      "Total Protein",
+      "Albumin",
+      "Globulin",
+      "Albumin/Globulin Ratio",
+      "Total Bilirubin",
+      "Alkaline Phosphatase (ALP)",
+      "Alanine Aminotransferase (ALT)",
+      "Aspartate Aminotransferase (AST)"
+    ],
+    "url": "https://www.questdiagnostics.com/test-directory/test-detail/322/comprehensive-metabolic-panel"
+  },
+  {
+    "id": "labcorp-basic-metabolic-panel",
+    "provider": "LabCorp",
+    "name": "Basic Metabolic Panel (BMP)",
+    "price": 25,
+    "drawFee": 10,
+    "markers": [
+      "Glucose, Fasting",
+      "Blood Urea Nitrogen (BUN)",
+      "Creatinine, Serum",
+      "eGFR (Estimated Glomerular Filtration Rate)",
+      "Sodium",
+      "Potassium",
+      "Chloride",
+      "Carbon Dioxide (CO2)"
+    ],
+    "url": "https://www.labcorp.com/tests/322000/basic-metabolic-panel-bmp"
+  },
+  {
+    "id": "quest-lipid-panel",
+    "provider": "Quest Diagnostics",
+    "name": "Lipid Panel",
+    "price": 35,
+    "drawFee": 12,
+    "markers": [
+      "Total Cholesterol",
+      "LDL Cholesterol",
+      "HDL Cholesterol",
+      "Triglycerides",
+      "Non-HDL Cholesterol"
+    ],
+    "url": "https://www.questdiagnostics.com/test-directory/test-detail/7600/lipid-panel"
+  },
+  {
+    "id": "labcorp-complete-blood-count",
+    "provider": "LabCorp",
+    "name": "Complete Blood Count (CBC) with Differential",
+    "price": 32,
+    "drawFee": 10,
+    "markers": [
+      "White Blood Cell Count (WBC)",
+      "Red Blood Cell Count (RBC)",
+      "Hemoglobin",
+      "Hematocrit",
+      "Mean Corpuscular Volume (MCV)",
+      "Mean Corpuscular Hemoglobin (MCH)",
+      "Mean Corpuscular Hemoglobin Concentration (MCHC)",
+      "Red Cell Distribution Width (RDW)",
+      "Platelet Count",
+      "Mean Platelet Volume (MPV)",
+      "Neutrophils, Absolute",
+      "Lymphocytes, Absolute",
+      "Monocytes, Absolute",
+      "Eosinophils, Absolute",
+      "Basophils, Absolute",
+      "Neutrophils, Percent",
+      "Lymphocytes, Percent",
+      "Monocytes, Percent",
+      "Eosinophils, Percent",
+      "Basophils, Percent"
+    ],
+    "url": "https://www.labcorp.com/tests/005009/complete-blood-count-cbc-with-differential"
+  },
+  {
+    "id": "quest-thyroid-function-panel",
+    "provider": "Quest Diagnostics",
+    "name": "Thyroid Function Panel",
+    "price": 89,
+    "drawFee": 12,
+    "markers": [
+      "Thyroid Stimulating Hormone (TSH)",
+      "Free Thyroxine (Free T4)",
+      "Free Triiodothyronine (Free T3)",
+      "Reverse T3"
+    ],
+    "url": "https://www.questdiagnostics.com/test-directory/test-detail/91764/thyroid-function-panel"
+  },
+  {
+    "id": "labcorp-diabetes-monitoring",
+    "provider": "LabCorp",
+    "name": "Diabetes Monitoring Panel",
+    "price": 45,
+    "drawFee": 10,
+    "markers": [
+      "Hemoglobin A1C",
+      "Glucose, Fasting",
+      "Insulin, Fasting",
+      "C-Peptide"
+    ],
+    "url": "https://www.labcorp.com/tests/001453/diabetes-monitoring-panel"
+  },
+  {
+    "id": "quest-vitamin-d-b12-folate",
+    "provider": "Quest Diagnostics",
+    "name": "Vitamin D, B12, and Folate Panel",
+    "price": 125,
+    "drawFee": 12,
+    "markers": [
+      "Vitamin D, 25-Hydroxy",
+      "Vitamin B12",
+      "Folate (Folic Acid)"
+    ],
+    "url": "https://www.questdiagnostics.com/test-directory/test-detail/17306/vitamin-d-b12-folate-panel"
+  },
+  {
+    "id": "labcorp-iron-studies",
+    "provider": "LabCorp",
+    "name": "Iron Studies Panel",
+    "price": 65,
+    "drawFee": 10,
+    "markers": [
+      "Iron, Serum",
+      "Ferritin, Serum",
+      "Total Iron Binding Capacity (TIBC)",
+      "Transferrin Saturation"
+    ],
+    "url": "https://www.labcorp.com/tests/001008/iron-studies-panel"
+  },
+  {
+    "id": "quest-inflammation-markers",
+    "provider": "Quest Diagnostics",
+    "name": "Inflammation Markers Panel",
+    "price": 78,
+    "drawFee": 12,
+    "markers": [
+      "C-Reactive Protein (CRP)",
+      "Erythrocyte Sedimentation Rate (ESR)",
+      "Interleukin-6 (IL-6)"
+    ],
+    "url": "https://www.questdiagnostics.com/test-directory/test-detail/4420/inflammation-panel"
+  },
+  {
+    "id": "labcorp-male-hormone-panel",
+    "provider": "LabCorp",
+    "name": "Male Hormone Panel",
+    "price": 189,
+    "drawFee": 10,
+    "markers": [
+      "Testosterone, Total",
+      "Testosterone, Free",
+      "Luteinizing Hormone (LH)",
+      "Follicle Stimulating Hormone (FSH)",
+      "Prolactin",
+      "Sex Hormone Binding Globulin (SHBG)",
+      "Estradiol"
+    ],
+    "url": "https://www.labcorp.com/tests/140103/male-hormone-panel"
+  },
+  {
+    "id": "quest-female-hormone-panel",
+    "provider": "Quest Diagnostics",
+    "name": "Female Hormone Panel",
+    "price": 195,
+    "drawFee": 12,
+    "markers": [
+      "Estradiol",
+      "Progesterone",
+      "Testosterone, Total",
+      "Luteinizing Hormone (LH)",
+      "Follicle Stimulating Hormone (FSH)",
+      "Prolactin",
+      "Sex Hormone Binding Globulin (SHBG)"
+    ],
+    "url": "https://www.questdiagnostics.com/test-directory/test-detail/140104/female-hormone-panel"
+  },
+  {
+    "id": "labcorp-kidney-function-panel",
+    "provider": "LabCorp",
+    "name": "Kidney Function Panel",
+    "price": 55,
+    "drawFee": 10,
+    "markers": [
+      "Creatinine, Serum",
+      "Blood Urea Nitrogen (BUN)",
+      "eGFR (Estimated Glomerular Filtration Rate)",
+      "Cystatin C",
+      "Uric Acid",
+      "Microalbumin, Urine",
+      "Creatinine, Urine",
+      "Albumin/Creatinine Ratio"
+    ],
+    "url": "https://www.labcorp.com/tests/001271/kidney-function-panel"
+  },
+  {
+    "id": "quest-liver-function-panel",
+    "provider": "Quest Diagnostics",
+    "name": "Liver Function Panel",
+    "price": 68,
+    "drawFee": 12,
+    "markers": [
+      "Alanine Aminotransferase (ALT)",
+      "Aspartate Aminotransferase (AST)",
+      "Alkaline Phosphatase (ALP)",
+      "Gamma-Glutamyl Transferase (GGT)",
+      "Total Bilirubin",
+      "Direct Bilirubin",
+      "Albumin",
+      "Total Protein"
+    ],
+    "url": "https://www.questdiagnostics.com/test-directory/test-detail/10231/liver-function-panel"
+  },
+  {
+    "id": "labcorp-cardiac-risk-panel",
+    "provider": "LabCorp",
+    "name": "Cardiac Risk Assessment Panel",
+    "price": 145,
+    "drawFee": 10,
+    "markers": [
+      "Total Cholesterol",
+      "LDL Cholesterol",
+      "HDL Cholesterol",
+      "Triglycerides",
+      "Apolipoprotein A1",
+      "Apolipoprotein B",
+      "Lipoprotein(a)",
+      "C-Reactive Protein (CRP)",
+      "Homocysteine"
+    ],
+    "url": "https://www.labcorp.com/tests/120766/cardiac-risk-assessment-panel"
+  },
+  {
+    "id": "quest-electrolyte-panel",
+    "provider": "Quest Diagnostics",
+    "name": "Electrolyte Panel",
+    "price": 28,
+    "drawFee": 12,
+    "markers": [
+      "Sodium",
+      "Potassium",
+      "Chloride",
+      "Carbon Dioxide (CO2)",
+      "Anion Gap"
+    ],
+    "url": "https://www.questdiagnostics.com/test-directory/test-detail/10306/electrolyte-panel"
+  },
+  {
+    "id": "labcorp-bone-health-panel",
+    "provider": "LabCorp",
+    "name": "Bone Health Panel",
+    "price": 95,
+    "drawFee": 10,
+    "markers": [
+      "Calcium",
+      "Phosphorus",
+      "Magnesium",
+      "Vitamin D, 25-Hydroxy",
+      "Alkaline Phosphatase (ALP)"
+    ],
+    "url": "https://www.labcorp.com/tests/010322/bone-health-panel"
+  },
+  {
+    "id": "quest-adrenal-function-panel",
+    "provider": "Quest Diagnostics",
+    "name": "Adrenal Function Panel",
+    "price": 158,
+    "drawFee": 12,
+    "markers": [
+      "Cortisol, Morning",
+      "DHEA-Sulfate (DHEA-S)",
+      "Cortisol, Urine"
+    ],
+    "url": "https://www.questdiagnostics.com/test-directory/test-detail/91764/adrenal-function-panel"
+  },
+  {
+    "id": "labcorp-prostate-health-panel",
+    "provider": "LabCorp",
+    "name": "Prostate Health Panel",
+    "price": 89,
+    "drawFee": 10,
+    "markers": [
+      "Prostate Specific Antigen (PSA)",
+      "Free PSA",
+      "PSA Ratio (Free/Total)"
+    ],
+    "url": "https://www.labcorp.com/tests/010322/prostate-health-panel"
+  },
+  {
+    "id": "quest-anemia-workup",
+    "provider": "Quest Diagnostics",
+    "name": "Anemia Workup Panel",
+    "price": 125,
+    "drawFee": 12,
+    "markers": [
+      "Complete Blood Count (CBC) with Differential",
+      "Iron, Serum",
+      "Ferritin, Serum",
+      "Total Iron Binding Capacity (TIBC)",
+      "Transferrin Saturation",
+      "Vitamin B12",
+      "Folate (Folic Acid)",
+      "Reticulocyte Count"
+    ],
+    "url": "https://www.questdiagnostics.com/test-directory/test-detail/006049/anemia-workup-panel"
+  },
+  {
+    "id": "labcorp-nutrient-panel",
+    "provider": "LabCorp",
+    "name": "Essential Nutrient Panel",
+    "price": 285,
+    "drawFee": 10,
+    "markers": [
+      "Vitamin D, 25-Hydroxy",
+      "Vitamin B12",
+      "Folate (Folic Acid)",
+      "Vitamin A (Retinol)",
+      "Vitamin E (Tocopherol)",
+      "Vitamin C (Ascorbic Acid)",
+      "Zinc",
+      "Copper",
+      "Selenium",
+      "Magnesium"
+    ],
+    "url": "https://www.labcorp.com/tests/070081/essential-nutrient-panel"
+  }
+]

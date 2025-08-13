@@ -1,0 +1,326 @@
+{
+  "Basic Metabolic": [
+    "Glucose, Fasting",
+    "Blood Urea Nitrogen (BUN)",
+    "Creatinine, Serum",
+    "eGFR (Estimated Glomerular Filtration Rate)",
+    "Sodium",
+    "Potassium",
+    "Chloride",
+    "Carbon Dioxide (CO2)",
+    "Calcium",
+    "Anion Gap"
+  ],
+  "Lipid Profile": [
+    "Total Cholesterol",
+    "LDL Cholesterol",
+    "HDL Cholesterol",
+    "Triglycerides",
+    "Non-HDL Cholesterol",
+    "Apolipoprotein A1",
+    "Apolipoprotein B",
+    "Lipoprotein(a)"
+  ],
+  "Liver Function": [
+    "Alanine Aminotransferase (ALT)",
+    "Aspartate Aminotransferase (AST)",
+    "Alkaline Phosphatase (ALP)",
+    "Gamma-Glutamyl Transferase (GGT)",
+    "Total Bilirubin",
+    "Direct Bilirubin",
+    "Lactate Dehydrogenase (LDH)",
+    "Albumin",
+    "Total Protein",
+    "Globulin",
+    "Albumin/Globulin Ratio"
+  ],
+  "Complete Blood Count": [
+    "White Blood Cell Count (WBC)",
+    "Red Blood Cell Count (RBC)",
+    "Hemoglobin",
+    "Hematocrit",
+    "Mean Corpuscular Volume (MCV)",
+    "Mean Corpuscular Hemoglobin (MCH)",
+    "Mean Corpuscular Hemoglobin Concentration (MCHC)",
+    "Red Cell Distribution Width (RDW)",
+    "Platelet Count",
+    "Mean Platelet Volume (MPV)",
+    "Neutrophils, Absolute",
+    "Lymphocytes, Absolute",
+    "Monocytes, Absolute",
+    "Eosinophils, Absolute",
+    "Basophils, Absolute",
+    "Neutrophils, Percent",
+    "Lymphocytes, Percent",
+    "Monocytes, Percent",
+    "Eosinophils, Percent",
+    "Basophils, Percent"
+  ],
+  "Thyroid Function": [
+    "Thyroid Stimulating Hormone (TSH)",
+    "Free Thyroxine (Free T4)",
+    "Free Triiodothyronine (Free T3)",
+    "Reverse T3",
+    "Thyroglobulin Antibody",
+    "Thyroid Peroxidase Antibody (TPO)"
+  ],
+  "Diabetes & Glucose": [
+    "Hemoglobin A1C",
+    "Glucose, Fasting",
+    "Insulin, Fasting",
+    "C-Peptide"
+  ],
+  "Iron Studies": [
+    "Iron, Serum",
+    "Ferritin, Serum",
+    "Total Iron Binding Capacity (TIBC)",
+    "Transferrin Saturation"
+  ],
+  "Vitamins & Minerals": [
+    "Vitamin D, 25-Hydroxy",
+    "Vitamin B12",
+    "Folate (Folic Acid)",
+    "Vitamin A (Retinol)",
+    "Vitamin E (Tocopherol)",
+    "Vitamin K",
+    "Vitamin C (Ascorbic Acid)",
+    "Vitamin B1 (Thiamine)",
+    "Vitamin B2 (Riboflavin)",
+    "Vitamin B3 (Niacin)",
+    "Vitamin B5 (Pantothenic Acid)",
+    "Vitamin B6 (Pyridoxine)",
+    "Biotin",
+    "Zinc",
+    "Copper",
+    "Selenium",
+    "Magnesium",
+    "Phosphorus"
+  ],
+  "Hormones - Male": [
+    "Testosterone, Total",
+    "Testosterone, Free",
+    "DHEA-Sulfate (DHEA-S)",
+    "Luteinizing Hormone (LH)",
+    "Follicle Stimulating Hormone (FSH)",
+    "Prolactin",
+    "Sex Hormone Binding Globulin (SHBG)",
+    "Estradiol"
+  ],
+  "Hormones - Female": [
+    "Estradiol",
+    "Progesterone",
+    "Testosterone, Total",
+    "Luteinizing Hormone (LH)",
+    "Follicle Stimulating Hormone (FSH)",
+    "Prolactin",
+    "Sex Hormone Binding Globulin (SHBG)"
+  ],
+  "Adrenal Function": [
+    "Cortisol, Morning",
+    "DHEA-Sulfate (DHEA-S)",
+    "Cortisol, Urine"
+  ],
+  "Growth Factors": [
+    "IGF-1 (Insulin-like Growth Factor 1)",
+    "Growth Hormone"
+  ],
+  "Inflammation": [
+    "C-Reactive Protein (CRP)",
+    "Erythrocyte Sedimentation Rate (ESR)",
+    "Interleukin-6 (IL-6)",
+    "Tumor Necrosis Factor-alpha (TNF-α)"
+  ],
+  "Kidney Function": [
+    "Creatinine, Serum",
+    "Blood Urea Nitrogen (BUN)",
+    "eGFR (Estimated Glomerular Filtration Rate)",
+    "Cystatin C",
+    "Uric Acid"
+  ],
+  "Cardiac Markers": [
+    "Troponin I",
+    "Troponin T",
+    "Creatine Kinase (CK)",
+    "CK-MB",
+    "B-type Natriuretic Peptide (BNP)",
+    "N-Terminal Pro-BNP (NT-proBNP)",
+    "Myoglobin",
+    "Homocysteine"
+  ],
+  "Cancer Markers": [
+    "Prostate Specific Antigen (PSA)",
+    "Free PSA",
+    "PSA Ratio (Free/Total)",
+    "Alpha-Fetoprotein (AFP)",
+    "Carcinoembryonic Antigen (CEA)",
+    "CA 19-9",
+    "CA 125",
+    "CA 15-3",
+    "CA 27-29",
+    "HE4 (Human Epididymis Protein 4)",
+    "Beta-hCG"
+  ],
+  "Coagulation": [
+    "Prothrombin Time (PT)",
+    "Partial Thromboplastin Time (PTT)",
+    "International Normalized Ratio (INR)",
+    "D-Dimer",
+    "Fibrinogen",
+    "Antithrombin III",
+    "Protein C",
+    "Protein S"
+  ],
+  "Genetic Markers": [
+    "Factor V Leiden",
+    "Prothrombin G20210A",
+    "MTHFR C677T",
+    "MTHFR A1298C",
+    "ApoE Genotype",
+    "COMT Genotype",
+    "MTHFR Genotype",
+    "VDR Genotype"
+  ],
+  "Metabolic Markers": [
+    "Lactate",
+    "Pyruvate",
+    "Ketones (Beta-hydroxybutyrate)",
+    "Osmolality, Serum"
+  ],
+  "Urinalysis": [
+    "Osmolality, Urine",
+    "Specific Gravity, Urine",
+    "Protein, Urine",
+    "Glucose, Urine",
+    "Ketones, Urine",
+    "Blood, Urine",
+    "Leukocyte Esterase, Urine",
+    "Nitrites, Urine",
+    "Urobilinogen, Urine",
+    "Bilirubin, Urine",
+    "pH, Urine",
+    "Microalbumin, Urine",
+    "Creatinine, Urine",
+    "Albumin/Creatinine Ratio"
+  ],
+  "Specialized Urine": [
+    "Cortisol, Urine",
+    "Catecholamines, Urine",
+    "Vanillylmandelic Acid (VMA), Urine",
+    "5-HIAA (5-Hydroxyindoleacetic Acid), Urine",
+    "Histamine, Urine",
+    "Methylhistamine, Urine",
+    "Mycotoxins, Urine",
+    "Heavy Metals Panel, Urine"
+  ],
+  "Gastrointestinal": [
+    "Gastrin",
+    "Pepsinogen I",
+    "Pepsinogen II",
+    "Pepsinogen I/II Ratio",
+    "H. pylori Antibody",
+    "H. pylori Antigen",
+    "Celiac Panel (tTG-IgA, EMA-IgA, DGP-IgG/IgA)",
+    "Zonulin",
+    "Lactulose/Mannitol Ratio"
+  ],
+  "Stool Analysis": [
+    "Short Chain Fatty Acids",
+    "Calprotectin, Fecal",
+    "Lactoferrin, Fecal",
+    "Elastase, Fecal",
+    "Fat, Fecal",
+    "Occult Blood, Fecal",
+    "Comprehensive Stool Analysis"
+  ],
+  "Allergy & Sensitivity": [
+    "Food Sensitivity Panel IgG",
+    "Food Allergy Panel IgE",
+    "Environmental Allergy Panel",
+    "Mold Panel",
+    "Candida Antibodies",
+    "Tryptase"
+  ],
+  "Neurotransmitters": [
+    "Serotonin",
+    "Dopamine",
+    "Norepinephrine",
+    "Epinephrine",
+    "GABA",
+    "Glutamate",
+    "Glycine",
+    "Taurine",
+    "Melatonin",
+    "Neurotransmitter Panel"
+  ],
+  "Amino Acids": [
+    "Quinolinic Acid",
+    "Kynurenic Acid",
+    "Kynurenine",
+    "Tryptophan",
+    "Amino Acids Panel"
+  ],
+  "Fatty Acids": [
+    "Choline",
+    "Inositol",
+    "Omega-3 Index",
+    "EPA (Eicosapentaenoic Acid)",
+    "DHA (Docosahexaenoic Acid)",
+    "AA/EPA Ratio",
+    "Fatty Acids Panel"
+  ],
+  "Antioxidants": [
+    "Coenzyme Q10 (CoQ10)",
+    "Alpha-Lipoic Acid",
+    "Glutathione, Reduced",
+    "Glutathione, Oxidized",
+    "Glutathione Peroxidase",
+    "Superoxide Dismutase (SOD)",
+    "Catalase",
+    "CoQ10, Plasma",
+    "Vitamin E/Cholesterol Ratio",
+    "Antioxidant Panel"
+  ],
+  "Oxidative Stress": [
+    "Lipid Peroxides",
+    "8-OHdG (8-Hydroxydeoxyguanosine)",
+    "Malondialdehyde (MDA)",
+    "F2-Isoprostanes",
+    "Oxidative Stress Panel",
+    "Organix Dysbiosis Marker"
+  ],
+  "Longevity & Aging": [
+    "Telomere Length",
+    "DNA Methylation Age",
+    "Longevity Genomics Panel"
+  ],
+  "Mitochondrial": [
+    "Mitochondrial Function Panel",
+    "ATP",
+    "Citrate Synthase",
+    "Complex I Activity",
+    "Complex IV Activity",
+    "Cardiolipin"
+  ],
+  "Comprehensive Testing": [
+    "Organic Acids Test",
+    "Heavy Metals Panel, Blood",
+    "SIBO Breath Test"
+  ],
+  "Genomics": [
+    "APOA2 Genotype",
+    "FTO Genotype",
+    "MC4R Genotype",
+    "PPARA Genotype",
+    "TCF7L2 Genotype",
+    "ADIPOQ Genotype",
+    "Pharmacogenomics Panel",
+    "Nutrigenomics Panel",
+    "Fitness Genomics Panel",
+    "Sleep Genomics Panel",
+    "Stress Response Genomics",
+    "Detoxification Genomics"
+  ],
+  "Specialized Markers": [
+    "Chromogranin A"
+  ]
+}
