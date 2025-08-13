@@ -72,14 +72,12 @@ const Index = () => {
               Save Money on Lab Tests
             </h1>
             <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
-              Compare prices across trusted lab providers and find the most cost-effective combination 
-              of panels for your health markers. No account required.
+              Find the most cost-effective lab panels for your health markers.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-              <span>✓ 70+ Health Markers</span>
-              <span>✓ CLIA-Certified Labs</span>
-              <span>✓ Draw Fees Included</span>
-              <span>✓ Instant Price Optimization</span>
+              <span>✓ 270+ Tests</span>
+              <span>✓ Trusted Labs</span>
+              <span>✓ Instant Optimization</span>
             </div>
             <div className="mt-4 flex items-center justify-center gap-4">
               <p className="text-xs text-muted-foreground">

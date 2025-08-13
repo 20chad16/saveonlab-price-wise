@@ -20,7 +20,7 @@ export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
           </div>
           <h3 className="text-xl font-semibold text-foreground">Ready to Save on Lab Tests?</h3>
           <p className="text-muted-foreground">
-            Select the health markers you want to test from the list above, and we'll find the most cost-effective combination of lab panels for you.
+            Select tests above to see optimized pricing.
           </p>
         </div>
       </Card>
@@ -35,9 +35,6 @@ export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
           <div className="text-center md:text-left">
             <div className="text-2xl font-bold text-primary">${optimized.totalWithDrawFees.toFixed(2)}</div>
             <div className="text-sm text-muted-foreground">Optimized Total</div>
-            <div className="text-xs text-muted-foreground mt-1">
-              Tests: ${optimized.total.toFixed(2)} + Draw fees: ${(optimized.totalWithDrawFees - optimized.total).toFixed(2)}
-            </div>
           </div>
           
           <div className="text-center">
@@ -45,9 +42,6 @@ export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
               ${optimized.individualCost.toFixed(2)}
             </div>
             <div className="text-sm text-muted-foreground">If Bought Separately</div>
-            <div className="text-xs text-muted-foreground mt-1">
-              Each test from cheapest lab + their draw fees
-            </div>
           </div>
           
           <div className="text-center md:text-right">
@@ -60,9 +54,6 @@ export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
             <div className="text-sm text-muted-foreground">
               {optimized.individualCost > 0 ? 
                 Math.round((optimized.savings / optimized.individualCost) * 100) : 0}% savings
-            </div>
-            <div className="text-xs text-muted-foreground mt-1">
-              By using optimized panels
             </div>
           </div>
         </div>
@@ -77,7 +68,7 @@ export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
             <AlertCircle className="h-12 w-12 text-warning mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">No Panels Found</h3>
             <p className="text-muted-foreground">
-              We couldn't find lab panels that cover your selected markers. Try selecting different tests or check back later as we add more providers.
+              No panels found for these markers. Try different tests.
             </p>
           </div>
         ) : (
@@ -93,7 +84,7 @@ export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
                   <div>
                     <h4 className="font-medium text-foreground">Tests Not Covered</h4>
                     <p className="text-sm text-muted-foreground mt-1">
-                      The following tests aren't included in the recommended panels:
+                      These tests need separate orders:
                     </p>
                     <div className="flex flex-wrap gap-2 mt-2">
                       {optimized.uncovered.map((marker) => (
@@ -139,7 +130,7 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
           <div className="text-right">
             <div className="text-xl font-bold text-foreground">${panel.price}</div>
             <div className="text-xs text-muted-foreground">
-              + ${panel.drawFee} draw fee (one per provider)
+              + ${panel.drawFee} draw fee
             </div>
             <div className="text-sm font-medium text-muted-foreground">
               Panel Total: ${(panel.price + panel.drawFee).toFixed(2)}

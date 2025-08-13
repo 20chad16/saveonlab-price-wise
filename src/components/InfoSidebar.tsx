@@ -12,10 +12,7 @@ export function InfoSidebar() {
         </div>
         <div className="space-y-3 text-sm text-muted-foreground">
           <p>
-            Our algorithm finds the optimal combination of lab panels and individual tests to minimize your total cost.
-          </p>
-          <p>
-            We factor in lab draw fees (typically $20-30 per provider) and use advanced optimization to ensure you get the best value.
+            Finds the optimal combination of panels to minimize your total cost including draw fees.
           </p>
         </div>
       </Card>
@@ -33,7 +30,7 @@ export function InfoSidebar() {
             <Badge variant="outline">DiscountedLabs</Badge>
           </div>
           <p className="text-sm text-muted-foreground">
-            All featured labs are CLIA-certified with national networks of patient service centers.
+            CLIA-certified labs with national coverage.
           </p>
         </div>
       </Card>
@@ -64,16 +61,10 @@ export function InfoSidebar() {
           <AlertTriangle className="h-5 w-5 text-warning mt-0.5" />
           <h3 className="font-semibold text-foreground">Important Disclaimers</h3>
         </div>
-        <div className="space-y-3 text-sm text-muted-foreground">
-          <p>
-            <strong>Affiliate Links:</strong> We may earn commissions from purchases at no extra cost to you.
-          </p>
-          <p>
-            <strong>Medical Advice:</strong> This tool provides pricing information only. Consult healthcare providers for medical decisions.
-          </p>
-          <p>
-            <strong>Accuracy:</strong> Prices are updated regularly but may vary. Confirm final pricing with providers.
-          </p>
+        <div className="space-y-2 text-sm text-muted-foreground">
+          <p>• For pricing comparison only - not medical advice</p>
+          <p>• We may earn affiliate commissions</p>
+          <p>• Prices may vary - confirm with providers</p>
         </div>
       </Card>
     </div>

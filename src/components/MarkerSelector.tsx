@@ -46,7 +46,7 @@ export function MarkerSelector({ selected, onToggle, onOptimize }: MarkerSelecto
         <div>
           <h2 className="text-2xl font-semibold text-foreground">Choose Your Lab Tests</h2>
           <p className="text-muted-foreground mt-2">
-            Select the health markers you want to test. We'll find the most cost-effective way to order them.
+            Select health markers and we'll find the best pricing.
           </p>
         </div>
 

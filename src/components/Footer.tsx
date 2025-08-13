@@ -10,8 +10,7 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-foreground">Lab Test Optimizer</h3>
             <p className="text-sm text-muted-foreground">
-              Find the most cost-effective lab panels by comparing prices across multiple providers. 
-              Save money on essential health markers.
+              Compare lab test prices and find the best deals.
             </p>
           </div>
 
@@ -36,9 +35,7 @@ export function Footer() {
               Medical Disclaimer
             </h3>
             <p className="text-sm text-muted-foreground">
-              This website is for informational purposes only and does not constitute medical advice. 
-              Always consult with a qualified healthcare provider before ordering lab tests or making 
-              health decisions.
+              Not medical advice. Consult your healthcare provider before ordering tests.
             </p>
           </div>
         </div>
@@ -73,14 +70,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Additional Legal Text */}
-        <div className="mt-6 p-4 bg-muted/50 rounded-lg">
-          <p className="text-xs text-muted-foreground">
-            <strong>Affiliate Disclosure:</strong> We may receive compensation when you purchase lab tests through our affiliate links. 
-            This does not affect our recommendations or pricing calculations. Prices are provided by third-party lab companies and 
-            may be subject to change. Lab draw fees vary by location and provider. Results processing times vary by test and provider.
-          </p>
-        </div>
       </div>
     </footer>
   );
