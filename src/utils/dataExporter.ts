@@ -1,4 +1,5 @@
 // Utility to help export current static data to JSON format for GitHub hosting
+import React from 'react';
 import { markers, panels, markerCategories, lastUpdatedISO } from '@/data/labData';
 
 export const exportDataForGitHub = () => {
@@ -26,10 +27,21 @@ export const exportDataForGitHub = () => {
   console.log('Upload these files to your GitHub repository to enable dynamic data loading.');
 };
 
-// Development helper - add this to a button in dev mode
-export const DevDataExporter = () => {
-  if (import.meta.env.DEV) {
-    return null; // Remove JSX for now, can be added to a component when needed
-  }
-  return null;
+// Add to window for easy access in dev console
+if (import.meta.env.DEV) {
+  (window as any).exportLabData = exportDataForGitHub;
+}
+
+// Development helper component
+export const DevDataExporter: React.FC = () => {
+  if (!import.meta.env.DEV) return null;
+  
+  return React.createElement('div', {
+    className: "fixed bottom-4 right-4 z-50"
+  }, 
+    React.createElement('button', {
+      onClick: exportDataForGitHub,
+      className: "bg-primary text-primary-foreground px-4 py-2 rounded-md shadow-lg hover:bg-primary/90 transition-colors"
+    }, "Export Data for GitHub")
+  );
 };

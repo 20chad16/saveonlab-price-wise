@@ -8,6 +8,7 @@ import { InfoSidebar } from "@/components/InfoSidebar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
+import { DevDataExporter } from "@/utils/dataExporter";
 
 const Index = () => {
   const { data: labData, loading, error, refreshData } = useLabData();
@@ -118,6 +119,7 @@ const Index = () => {
         </div>
       </main>
       <Footer />
+      <DevDataExporter />
     </div>
   );
 };
