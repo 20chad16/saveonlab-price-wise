@@ -5,8 +5,8 @@ export const API_CONFIG = {
     enabled: true,
     baseUrl: 'https://raw.githubusercontent.com',
     // TODO: Update these with your actual repository details
-    owner: 'your-username', // Replace with your GitHub username
-    repo: 'lab-data', // Replace with your repository name
+    owner: '20chad16', // Replace with your GitHub username
+    repo: 'saveonlab-price', // Replace with your repository name
     branch: 'main',
     endpoints: {
       markers: '/markers.json',
