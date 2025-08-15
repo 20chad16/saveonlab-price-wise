@@ -17,10 +17,10 @@ class LabDataService {
   private readonly DATA_SOURCES = {
     // GitHub raw JSON endpoints (replace with your actual repo URLs)
     github: {
-      markers: 'https://raw.githubusercontent.com/your-username/lab-data/main/markers.json',
-      panels: 'https://raw.githubusercontent.com/your-username/lab-data/main/panels.json',
-      markerCategories: 'https://raw.githubusercontent.com/your-username/lab-data/main/marker-categories.json',
-      lastUpdated: 'https://raw.githubusercontent.com/your-username/lab-data/main/last-updated.json'
+      markers: 'https://github.com/20chad16/saveonlab-price-wise/blob/main/markers.json',
+      panels: 'https://github.com/20chad16/saveonlab-price-wise/blob/main/panels.json',
+      markerCategories: 'https://github.com/20chad16/saveonlab-price-wise/blob/main/marker-categories.json',
+      lastUpdated: 'https://github.com/20chad16/saveonlab-price-wise/blob/main/last-updated.json'
     },
     // Fallback to static data
     fallback: true
