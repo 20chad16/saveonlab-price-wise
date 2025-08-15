@@ -1,5 +1,6 @@
 
 import { type Marker, type Panel, type MarkerCategory } from '@/data/labData';
+import { buildGitHubUrl, API_CONFIG } from '@/services/apiConfig';
 
 export interface LabDataResponse {
   markers: Marker[];
@@ -13,26 +14,24 @@ class LabDataService {
   private readonly CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
   private cacheTimestamp: number = 0;
   
-  // Configuration for external data sources
-  private readonly DATA_SOURCES = {
-    // GitHub raw JSON endpoints (replace with your actual repo URLs)
-    github: {
-      markers: 'https://github.com/20chad16/saveonlab-price-wise/blob/main/markers.json',
-      panels: 'https://github.com/20chad16/saveonlab-price-wise/blob/main/panels.json',
-      markerCategories: 'https://github.com/20chad16/saveonlab-price-wise/blob/main/marker-categories.json',
-      lastUpdated: 'https://github.com/20chad16/saveonlab-price-wise/blob/main/last-updated.json'
-    },
-    // Fallback to static data
-    fallback: true
-  };
+  // Get URLs from API config
+  private getDataUrls() {
+    return {
+      markers: buildGitHubUrl(API_CONFIG.github.endpoints.markers),
+      panels: buildGitHubUrl(API_CONFIG.github.endpoints.panels),
+      markerCategories: buildGitHubUrl(API_CONFIG.github.endpoints.markerCategories),
+      lastUpdated: buildGitHubUrl(API_CONFIG.github.endpoints.lastUpdated)
+    };
+  }
 
   private async fetchFromGitHub(): Promise<LabDataResponse> {
     try {
+      const urls = this.getDataUrls();
       const [markersRes, panelsRes, categoriesRes, lastUpdatedRes] = await Promise.all([
-        fetch(this.DATA_SOURCES.github.markers),
-        fetch(this.DATA_SOURCES.github.panels),
-        fetch(this.DATA_SOURCES.github.markerCategories),
-        fetch(this.DATA_SOURCES.github.lastUpdated)
+        fetch(urls.markers),
+        fetch(urls.panels),
+        fetch(urls.markerCategories),
+        fetch(urls.lastUpdated)
       ]);
 
       if (!markersRes.ok || !panelsRes.ok || !categoriesRes.ok || !lastUpdatedRes.ok) {
@@ -86,7 +85,7 @@ class LabDataService {
     } catch (error) {
       console.warn('Failed to fetch from external sources, falling back to static data:', error);
       
-      if (this.DATA_SOURCES.fallback) {
+      if (API_CONFIG.fallback.enabled) {
         const response = await this.fetchFallbackData();
         
         this.cache = response;
