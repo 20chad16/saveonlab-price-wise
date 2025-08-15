@@ -4,15 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, ChevronDown, ChevronUp } from "lucide-react";
+import { Search, ChevronDown, ChevronUp, X } from "lucide-react";
 
 interface MarkerSelectorProps {
   selected: Marker[];
   onToggle: (marker: Marker) => void;
+  onRemove: (marker: Marker) => void;
   onOptimize: () => void;
 }
 
-export function MarkerSelector({ selected, onToggle, onOptimize }: MarkerSelectorProps) {
+export function MarkerSelector({ selected, onToggle, onRemove, onOptimize }: MarkerSelectorProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedCategories, setExpandedCategories] = useState<Set<MarkerCategory>>(
     new Set(["Basic Health", "Heart Health", "Metabolic Health"])
@@ -156,8 +157,15 @@ export function MarkerSelector({ selected, onToggle, onOptimize }: MarkerSelecto
           {selected.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {selected.slice(0, 5).map((marker) => (
-                <Badge key={marker} variant="outline" className="text-xs">
+                <Badge key={marker} variant="outline" className="text-xs flex items-center gap-1">
                   {marker}
+                  <button
+                    onClick={() => onRemove(marker)}
+                    className="ml-1 hover:bg-destructive/20 rounded-full p-0.5 transition-colors"
+                    aria-label={`Remove ${marker}`}
+                  >
+                    <X className="h-2.5 w-2.5" />
+                  </button>
                 </Badge>
               ))}
               {selected.length > 5 && (

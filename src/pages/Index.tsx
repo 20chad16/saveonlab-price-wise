@@ -21,6 +21,10 @@ const Index = () => {
     );
   };
 
+  const removeMarker = (marker: Marker) => {
+    setSelected(prev => prev.filter(m => m !== marker));
+  };
+
   const handleOptimize = () => {
     setOptimized(optimizePanels(selected));
   };
@@ -103,6 +107,7 @@ const Index = () => {
             <MarkerSelector 
               selected={selected}
               onToggle={toggleMarker}
+              onRemove={removeMarker}
               onOptimize={handleOptimize}
             />
             <ResultsPanel 

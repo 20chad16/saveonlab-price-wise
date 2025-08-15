@@ -27,6 +27,7 @@ class LabDataService {
   private async fetchFromGitHub(): Promise<LabDataResponse> {
     try {
       const urls = this.getDataUrls();
+      console.log('Attempting to fetch from GitHub URLs:', urls);
       const [markersRes, panelsRes, categoriesRes, lastUpdatedRes] = await Promise.all([
         fetch(urls.markers),
         fetch(urls.panels),
