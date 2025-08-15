@@ -35,8 +35,15 @@ class LabDataService {
         fetch(urls.lastUpdated)
       ]);
 
+      console.log('GitHub fetch responses:', {
+        markers: markersRes.status,
+        panels: panelsRes.status,
+        categories: categoriesRes.status,
+        lastUpdated: lastUpdatedRes.status
+      });
+
       if (!markersRes.ok || !panelsRes.ok || !categoriesRes.ok || !lastUpdatedRes.ok) {
-        throw new Error('Failed to fetch data from GitHub');
+        throw new Error(`Failed to fetch data from GitHub. Status codes: markers=${markersRes.status}, panels=${panelsRes.status}, categories=${categoriesRes.status}, lastUpdated=${lastUpdatedRes.status}`);
       }
 
       const [markers, panels, markerCategories, lastUpdatedData] = await Promise.all([
