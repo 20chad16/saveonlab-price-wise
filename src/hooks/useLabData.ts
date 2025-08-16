@@ -33,6 +33,7 @@ export const useLabData = () => {
   }, [toast]);
 
   const refreshData = async () => {
+    console.log('🔄 FORCE REFRESH: Clearing cache and fetching fresh data...');
     labDataService.clearCache();
     const loadData = async () => {
       try {

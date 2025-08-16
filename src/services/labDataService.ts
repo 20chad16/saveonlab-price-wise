@@ -27,7 +27,8 @@ class LabDataService {
   private async fetchFromGitHub(): Promise<LabDataResponse> {
     try {
       const urls = this.getDataUrls();
-      console.log('Attempting to fetch from GitHub URLs:', urls);
+      console.log('🔍 DEBUGGING: Attempting to fetch from GitHub URLs:', urls);
+      console.log('🔍 GitHub config:', API_CONFIG.github);
       const [markersRes, panelsRes, categoriesRes, lastUpdatedRes] = await Promise.all([
         fetch(urls.markers),
         fetch(urls.panels),
@@ -35,14 +36,25 @@ class LabDataService {
         fetch(urls.lastUpdated)
       ]);
 
-      console.log('GitHub fetch responses:', {
+      console.log('🔍 GitHub fetch responses:', {
         markers: markersRes.status,
         panels: panelsRes.status,
         categories: categoriesRes.status,
         lastUpdated: lastUpdatedRes.status
       });
 
+      // Log the actual URLs that failed
+      if (!markersRes.ok) console.log('❌ Markers URL failed:', urls.markers);
+      if (!panelsRes.ok) console.log('❌ Panels URL failed:', urls.panels);
+      if (!categoriesRes.ok) console.log('❌ Categories URL failed:', urls.markerCategories);
+      if (!lastUpdatedRes.ok) console.log('❌ LastUpdated URL failed:', urls.lastUpdated);
+
       if (!markersRes.ok || !panelsRes.ok || !categoriesRes.ok || !lastUpdatedRes.ok) {
+        console.log('❌ GITHUB FETCH FAILED. Detailed status info:');
+        console.log('- Markers:', markersRes.status, markersRes.statusText, 'URL:', urls.markers);
+        console.log('- Panels:', panelsRes.status, panelsRes.statusText, 'URL:', urls.panels);
+        console.log('- Categories:', categoriesRes.status, categoriesRes.statusText, 'URL:', urls.markerCategories);
+        console.log('- LastUpdated:', lastUpdatedRes.status, lastUpdatedRes.statusText, 'URL:', urls.lastUpdated);
         throw new Error(`Failed to fetch data from GitHub. Status codes: markers=${markersRes.status}, panels=${panelsRes.status}, categories=${categoriesRes.status}, lastUpdated=${lastUpdatedRes.status}`);
       }
 
@@ -91,7 +103,8 @@ class LabDataService {
       
       return response;
     } catch (error) {
-      console.warn('Failed to fetch from external sources, falling back to static data:', error);
+      console.warn('❌ GITHUB SYNC FAILED - falling back to static data:', error);
+      console.log('🔧 TO FIX: Ensure your JSON files are pushed to: https://github.com/20chad16/saveonlab-price-wise/tree/main/');
       
       if (API_CONFIG.fallback.enabled) {
         const response = await this.fetchFallbackData();
