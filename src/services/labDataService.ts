@@ -6,6 +6,7 @@ export interface LabDataResponse {
   markers: Marker[];
   panels: Panel[];
   markerCategories: Record<MarkerCategory, Marker[]>;
+  markerMappings: Record<string, string>;
   lastUpdatedISO: string;
 }
 
@@ -20,6 +21,7 @@ class LabDataService {
       markers: buildGitHubUrl(API_CONFIG.github.endpoints.markers),
       panels: buildGitHubUrl(API_CONFIG.github.endpoints.panels),
       markerCategories: buildGitHubUrl(API_CONFIG.github.endpoints.markerCategories),
+      markerMappings: buildGitHubUrl(API_CONFIG.github.endpoints.markerMappings),
       lastUpdated: buildGitHubUrl(API_CONFIG.github.endpoints.lastUpdated)
     };
   }
@@ -28,10 +30,11 @@ class LabDataService {
     try {
       const urls = this.getDataUrls();
       console.log('Attempting to fetch from GitHub URLs:', urls);
-      const [markersRes, panelsRes, categoriesRes, lastUpdatedRes] = await Promise.all([
+      const [markersRes, panelsRes, categoriesRes, mappingsRes, lastUpdatedRes] = await Promise.all([
         fetch(urls.markers),
         fetch(urls.panels),
         fetch(urls.markerCategories),
+        fetch(urls.markerMappings),
         fetch(urls.lastUpdated)
       ]);
 
@@ -39,17 +42,19 @@ class LabDataService {
         markers: markersRes.status,
         panels: panelsRes.status,
         categories: categoriesRes.status,
+        mappings: mappingsRes.status,
         lastUpdated: lastUpdatedRes.status
       });
 
-      if (!markersRes.ok || !panelsRes.ok || !categoriesRes.ok || !lastUpdatedRes.ok) {
-        throw new Error(`Failed to fetch data from GitHub. Status codes: markers=${markersRes.status}, panels=${panelsRes.status}, categories=${categoriesRes.status}, lastUpdated=${lastUpdatedRes.status}`);
+      if (!markersRes.ok || !panelsRes.ok || !categoriesRes.ok || !mappingsRes.ok || !lastUpdatedRes.ok) {
+        throw new Error(`Failed to fetch data from GitHub. Status codes: markers=${markersRes.status}, panels=${panelsRes.status}, categories=${categoriesRes.status}, mappings=${mappingsRes.status}, lastUpdated=${lastUpdatedRes.status}`);
       }
 
-      const [markers, panels, markerCategories, lastUpdatedData] = await Promise.all([
+      const [markers, panels, markerCategories, markerMappings, lastUpdatedData] = await Promise.all([
         markersRes.json(),
         panelsRes.json(),
         categoriesRes.json(),
+        mappingsRes.json(),
         lastUpdatedRes.json()
       ]);
 
@@ -57,6 +62,7 @@ class LabDataService {
         markers,
         panels,
         markerCategories,
+        markerMappings,
         lastUpdatedISO: lastUpdatedData.lastUpdatedISO
       };
     } catch (error) {
@@ -68,10 +74,13 @@ class LabDataService {
   private async fetchFallbackData(): Promise<LabDataResponse> {
     // Dynamic import of static data as fallback
     const { markers, panels, markerCategories, lastUpdatedISO } = await import('@/data/labData');
+    // For fallback, use empty mappings object
+    const markerMappings = {};
     return {
       markers,
       panels,
       markerCategories,
+      markerMappings,
       lastUpdatedISO
     };
   }

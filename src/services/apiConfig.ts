@@ -12,6 +12,7 @@ export const API_CONFIG = {
       markers: '/markers.json',
       panels: '/panels.json',
       markerCategories: '/marker-categories.json',
+      markerMappings: '/marker-mappings.json',
       lastUpdated: '/last-updated.json'
     }
   },
