@@ -1,4 +1,4 @@
-// API Configuration for external data sources
+// API Configuration for external data sources - Updated for GitHub sync
 export const API_CONFIG = {
   // GitHub configuration
   github: {

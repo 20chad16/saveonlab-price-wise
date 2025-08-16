@@ -122,6 +122,10 @@ class LabDataService {
   clearCache(): void {
     this.cache = null;
     this.cacheTimestamp = 0;
+    // Also clear localStorage cache if enabled
+    if (API_CONFIG.cache.enableLocalStorage) {
+      localStorage.removeItem(API_CONFIG.cache.localStorageKey);
+    }
   }
 }
 
