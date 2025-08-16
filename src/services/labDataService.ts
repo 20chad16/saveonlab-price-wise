@@ -89,14 +89,29 @@ class LabDataService {
   }
 
   async getLabData(): Promise<LabDataResponse> {
-    // Check if we have valid cached data
-    if (this.cache && Date.now() - this.cacheTimestamp < this.CACHE_DURATION) {
+    console.log('🚀 GET LAB DATA: Starting data fetch...');
+    console.log('💾 CACHE STATUS:', {
+      hasCache: !!this.cache,
+      cacheAge: this.cacheTimestamp ? Date.now() - this.cacheTimestamp : 'none',
+      cacheDuration: API_CONFIG.cache.duration,
+      isValid: this.cache && Date.now() - this.cacheTimestamp < API_CONFIG.cache.duration
+    });
+    
+    // Check if we have valid cached data using API_CONFIG cache duration
+    if (this.cache && Date.now() - this.cacheTimestamp < API_CONFIG.cache.duration) {
+      console.log('✅ USING CACHE:', this.cache.panels[0]);
       return this.cache;
     }
 
     try {
       // Try to fetch from external sources first
+      console.log('🔄 FETCHING FROM GITHUB...');
       const response = await this.fetchFromGitHub();
+      
+      console.log('✅ GITHUB SUCCESS - GOT DATA:', {
+        panelsCount: response.panels.length,
+        firstPanel: response.panels[0]
+      });
       
       this.cache = response;
       this.cacheTimestamp = Date.now();
@@ -107,7 +122,13 @@ class LabDataService {
       console.log('🔧 TO FIX: Ensure your JSON files are pushed to: https://github.com/20chad16/saveonlab-price-wise/tree/main/');
       
       if (API_CONFIG.fallback.enabled) {
+        console.log('⚠️ USING STATIC FALLBACK DATA');
         const response = await this.fetchFallbackData();
+        
+        console.log('📄 STATIC DATA:', {
+          panelsCount: response.panels.length,
+          firstPanel: response.panels[0]
+        });
         
         this.cache = response;
         this.cacheTimestamp = Date.now();
