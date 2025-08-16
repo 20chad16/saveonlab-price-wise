@@ -1307,45 +1307,44 @@ export type OptimizeResult = {
   individualCost: number;
 };
 
-function calculateIndividualCost(markers: Marker[]): number {
+function calculateIndividualCost(selected: Marker[], panelsData?: Panel[]): number {
+  const panelsToUse = panelsData || panels;
   let total = 0;
   const drawFees = new Set<string>();
-  
-  for (const marker of markers) {
-    // Find cheapest individual test for this marker
-    const availablePanels = panels.filter(p => 
-      p.markers.includes(marker) && p.markers.length === 1
-    );
+
+  // For each marker, find cheapest single-marker panel
+  for (const marker of selected) {
+    const cheapest = panelsToUse
+      .filter(p => p.markers.includes(marker))
+      .reduce((min, p) => p.price < min.price ? p : min, panelsToUse[0]);
     
-    if (availablePanels.length > 0) {
-      const cheapest = availablePanels.reduce((min, panel) => 
-        panel.price < min.price ? panel : min
-      );
+    if (cheapest) {
       total += cheapest.price;
       drawFees.add(cheapest.provider);
     }
   }
-  
+
   // Add unique draw fees (one per provider)
   for (const provider of drawFees) {
-    const providerPanel = panels.find(p => p.provider === provider);
+    const providerPanel = panelsToUse.find(p => p.provider === provider);
     if (providerPanel) total += providerPanel.drawFee;
   }
   
   return total;
 }
 
-export function optimizePanels(selected: Marker[]): OptimizeResult {
+export function optimizePanels(selected: Marker[], panelsData?: Panel[]): OptimizeResult {
+  const panelsToUse = panelsData || panels;
   const desired = new Set<Marker>(selected);
   const covered = new Set<Marker>();
   const chosen: Panel[] = [];
   const providerDrawFees = new Set<string>();
 
   // Calculate cost if buying individually
-  const individualCost = calculateIndividualCost(selected);
+  const individualCost = calculateIndividualCost(selected, panelsToUse);
 
   // Panels can only help if they cover at least one desired and uncovered marker
-  const candidates = panels.slice();
+  const candidates = panelsToUse.slice();
 
   while (true) {
     const remaining = Array.from(desired).filter((m) => !covered.has(m));

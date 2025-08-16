@@ -1,5 +1,5 @@
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { optimizePanels, type Marker } from "@/data/labData";
 import { useLabData } from "@/hooks/useLabData";
 import { MarkerSelector } from "@/components/MarkerSelector";
@@ -13,7 +13,7 @@ import { DevDataExporter } from "@/utils/dataExporter";
 const Index = () => {
   const { data: labData, loading, error, refreshData } = useLabData();
   const [selected, setSelected] = useState<Marker[]>([]);
-  const [optimized, setOptimized] = useState(() => optimizePanels([]));
+  const [optimized, setOptimized] = useState(() => optimizePanels([], labData?.panels));
 
   const toggleMarker = (m: Marker) => {
     setSelected((prev) =>
@@ -26,8 +26,18 @@ const Index = () => {
   };
 
   const handleOptimize = () => {
-    setOptimized(optimizePanels(selected));
+    console.log('🔧 OPTIMIZE: Using panels data from:', labData?.panels ? 'GitHub' : 'fallback');
+    console.log('🔧 OPTIMIZE: First panel in data:', labData?.panels?.[0]);
+    setOptimized(optimizePanels(selected, labData?.panels));
   };
+
+  // Re-optimize when data changes or selection changes
+  useEffect(() => {
+    if (selected.length > 0 && labData?.panels) {
+      console.log('🔄 AUTO-OPTIMIZE: Data or selection changed, re-optimizing...');
+      setOptimized(optimizePanels(selected, labData.panels));
+    }
+  }, [selected, labData?.panels]);
 
   const lastUpdated = useMemo(() => {
     if (!labData?.lastUpdatedISO) return "Recently";
