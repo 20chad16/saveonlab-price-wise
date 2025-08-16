@@ -31,8 +31,8 @@ export const API_CONFIG = {
   
   // Cache settings
   cache: {
-    duration: 5 * 60 * 1000, // 5 minutes
-    enableLocalStorage: true,
+    duration: 0, // Disable cache temporarily to force fresh data
+    enableLocalStorage: false,
     localStorageKey: 'lab_data_cache'
   },
   
