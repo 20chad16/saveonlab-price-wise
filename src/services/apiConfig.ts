@@ -9,10 +9,10 @@ export const API_CONFIG = {
     repo: 'saveonlab-price-wise', // Replace with your repository name
     branch: 'main',
     endpoints: {
-      markers: '/markers.json',
-      panels: '/panels.json',
-      markerCategories: '/marker-categories.json',
-      lastUpdated: '/last-updated.json'
+      markers: '/data/markers.json',
+      panels: '/data/panels.json',
+      markerCategories: '/data/marker-categories.json',
+      lastUpdated: '/data/last-updated.json'
     }
   },
   
