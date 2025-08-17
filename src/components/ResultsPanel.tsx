@@ -108,6 +108,11 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
   const relevantMarkers = panel.markers.filter(marker => selected.includes(marker));
   const additionalMarkers = panel.markers.filter(marker => !selected.includes(marker));
   
+  // Extract seller from URL
+  const seller = panel.url?.includes('ultalabtests.com') ? 'Ulta Lab Tests' : 
+                panel.url?.includes('questdirect.com') ? 'Quest Direct' : 
+                'Lab Provider';
+  
   return (
     <div className="border border-border rounded-lg p-4 hover:shadow-soft transition-shadow">
       <div className="space-y-4">
@@ -118,7 +123,10 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
                 Panel {index + 1}
               </Badge>
               <Badge variant="secondary" className="text-xs">
-                {panel.provider}
+                Lab: {panel.provider}
+              </Badge>
+              <Badge variant="outline" className="text-xs">
+                Seller: {seller}
               </Badge>
             </div>
             <h3 className="font-semibold text-foreground text-lg">{panel.name}</h3>
@@ -176,7 +184,7 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
             className="inline-flex"
           >
             <Button className="gap-2">
-              Order from {panel.provider}
+              Order from {seller}
               <ExternalLink className="h-4 w-4" />
             </Button>
           </a>

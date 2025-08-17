@@ -130,7 +130,6 @@ const Index = () => {
               onRemove={removeMarker}
               onOptimize={handleOptimize}
               availableMarkers={availableMarkers}
-              panelsData={labData?.panels}
             />
             <ResultsPanel 
               selected={selected}
