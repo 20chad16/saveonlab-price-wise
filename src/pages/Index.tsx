@@ -15,6 +15,16 @@ const Index = () => {
   const [selected, setSelected] = useState<Marker[]>([]);
   const [optimized, setOptimized] = useState(() => optimizePanels([], labData?.panels));
 
+  // Extract available markers from panels data
+  const availableMarkers = useMemo(() => {
+    if (!labData?.panels) return [];
+    const markersSet = new Set<Marker>();
+    labData.panels.forEach(panel => {
+      panel.markers.forEach(marker => markersSet.add(marker));
+    });
+    return Array.from(markersSet);
+  }, [labData?.panels]);
+
   const toggleMarker = (m: Marker) => {
     setSelected((prev) =>
       prev.includes(m) ? prev.filter((x) => x !== m) : [...prev, m]
@@ -119,6 +129,7 @@ const Index = () => {
               onToggle={toggleMarker}
               onRemove={removeMarker}
               onOptimize={handleOptimize}
+              availableMarkers={availableMarkers}
             />
             <ResultsPanel 
               selected={selected}

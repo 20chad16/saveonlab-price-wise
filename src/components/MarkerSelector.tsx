@@ -11,9 +11,10 @@ interface MarkerSelectorProps {
   onToggle: (marker: Marker) => void;
   onRemove: (marker: Marker) => void;
   onOptimize: () => void;
+  availableMarkers?: Marker[];
 }
 
-export function MarkerSelector({ selected, onToggle, onRemove, onOptimize }: MarkerSelectorProps) {
+export function MarkerSelector({ selected, onToggle, onRemove, onOptimize, availableMarkers }: MarkerSelectorProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedCategories, setExpandedCategories] = useState<Set<MarkerCategory>>(
     new Set(["Basic Health", "Heart Health", "Metabolic Health"])
@@ -29,14 +30,17 @@ export function MarkerSelector({ selected, onToggle, onRemove, onOptimize }: Mar
     setExpandedCategories(newExpanded);
   };
 
+  // Use only markers that are available in panels data
+  const availableMarkersSet = new Set(availableMarkers || Object.values(markerCategories).flat());
+
   const filteredCategories = Object.entries(markerCategories).map(([category, markers]) => {
-    const filteredMarkers = markers.filter(marker =>
-      marker.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredMarkers = markers
+      .filter(marker => availableMarkersSet.has(marker))
+      .filter(marker => marker.toLowerCase().includes(searchTerm.toLowerCase()));
     return [category as MarkerCategory, filteredMarkers] as const;
   }).filter(([, markers]) => markers.length > 0);
 
-  const allMarkers = Object.values(markerCategories).flat();
+  const allMarkers = Array.from(availableMarkersSet);
   const filteredAllMarkers = allMarkers.filter(marker =>
     marker.toLowerCase().includes(searchTerm.toLowerCase())
   );
