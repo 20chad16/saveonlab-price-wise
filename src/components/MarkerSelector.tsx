@@ -12,9 +12,10 @@ interface MarkerSelectorProps {
   onRemove: (marker: Marker) => void;
   onOptimize: () => void;
   availableMarkers?: Marker[];
+  panelsData?: any[];
 }
 
-export function MarkerSelector({ selected, onToggle, onRemove, onOptimize, availableMarkers }: MarkerSelectorProps) {
+export function MarkerSelector({ selected, onToggle, onRemove, onOptimize, availableMarkers, panelsData }: MarkerSelectorProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedCategories, setExpandedCategories] = useState<Set<MarkerCategory>>(
     new Set(["Basic Health", "Heart Health", "Metabolic Health"])
@@ -32,6 +33,24 @@ export function MarkerSelector({ selected, onToggle, onRemove, onOptimize, avail
 
   // Use only markers that are available in panels data
   const availableMarkersSet = new Set(availableMarkers || Object.values(markerCategories).flat());
+
+  // Helper function to get panel info for a marker
+  const getMarkerInfo = (marker: Marker) => {
+    if (!panelsData) return null;
+    const panel = panelsData.find(p => p.markers.includes(marker));
+    if (!panel) return null;
+    
+    // Extract seller from URL
+    const seller = panel.url?.includes('ultalabtests.com') ? 'Ulta Lab Tests' : 
+                  panel.url?.includes('questdirect.com') ? 'Quest Direct' : 
+                  'Lab Provider';
+    
+    return {
+      lab: panel.provider,
+      seller,
+      price: panel.price
+    };
+  };
 
   const filteredCategories = Object.entries(markerCategories).map(([category, markers]) => {
     const filteredMarkers = markers
@@ -96,24 +115,42 @@ export function MarkerSelector({ selected, onToggle, onRemove, onOptimize, avail
                   
                   {expandedCategories.has(category) && (
                     <div className="px-4 pb-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                        {markers.map((marker) => (
-                          <label
-                            key={marker}
-                            className="flex items-start gap-3 p-3 border border-border rounded-md hover:bg-accent cursor-pointer transition-colors"
-                          >
-                            <input
-                              type="checkbox"
-                              className="mt-0.5 h-4 w-4 text-primary focus:ring-primary border-border rounded"
-                              checked={selected.includes(marker)}
-                              onChange={() => onToggle(marker)}
-                              aria-label={`Select ${marker}`}
-                            />
-                            <span className="text-sm font-medium text-foreground leading-tight">
-                              {marker}
-                            </span>
-                          </label>
-                        ))}
+                      <div className="grid grid-cols-1 gap-3">
+                        {markers.map((marker) => {
+                          const markerInfo = getMarkerInfo(marker);
+                          return (
+                            <label
+                              key={marker}
+                              className="flex items-start gap-3 p-3 border border-border rounded-md hover:bg-accent cursor-pointer transition-colors"
+                            >
+                              <input
+                                type="checkbox"
+                                className="mt-0.5 h-4 w-4 text-primary focus:ring-primary border-border rounded"
+                                checked={selected.includes(marker)}
+                                onChange={() => onToggle(marker)}
+                                aria-label={`Select ${marker}`}
+                              />
+                              <div className="flex-1 min-w-0">
+                                <div className="font-medium text-foreground leading-tight mb-1">
+                                  {marker}
+                                </div>
+                                {markerInfo && (
+                                  <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+                                    <span className="flex items-center gap-1">
+                                      <span className="font-medium">Lab:</span> {markerInfo.lab}
+                                    </span>
+                                    <span className="text-muted-foreground">•</span>
+                                    <span className="flex items-center gap-1">
+                                      <span className="font-medium">Seller:</span> {markerInfo.seller}
+                                    </span>
+                                    <span className="text-muted-foreground">•</span>
+                                    <span className="font-medium text-primary">${markerInfo.price}</span>
+                                  </div>
+                                )}
+                              </div>
+                            </label>
+                          );
+                        })}
                       </div>
                     </div>
                   )}
@@ -123,24 +160,42 @@ export function MarkerSelector({ selected, onToggle, onRemove, onOptimize, avail
           </TabsContent>
 
           <TabsContent value="all" className="mt-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {filteredAllMarkers.map((marker) => (
-                <label
-                  key={marker}
-                  className="flex items-start gap-3 p-3 border border-border rounded-md hover:bg-accent cursor-pointer transition-colors"
-                >
-                  <input
-                    type="checkbox"
-                    className="mt-0.5 h-4 w-4 text-primary focus:ring-primary border-border rounded"
-                    checked={selected.includes(marker)}
-                    onChange={() => onToggle(marker)}
-                    aria-label={`Select ${marker}`}
-                  />
-                  <span className="text-sm font-medium text-foreground leading-tight">
-                    {marker}
-                  </span>
-                </label>
-              ))}
+            <div className="grid grid-cols-1 gap-3">
+              {filteredAllMarkers.map((marker) => {
+                const markerInfo = getMarkerInfo(marker);
+                return (
+                  <label
+                    key={marker}
+                    className="flex items-start gap-3 p-3 border border-border rounded-md hover:bg-accent cursor-pointer transition-colors"
+                  >
+                    <input
+                      type="checkbox"
+                      className="mt-0.5 h-4 w-4 text-primary focus:ring-primary border-border rounded"
+                      checked={selected.includes(marker)}
+                      onChange={() => onToggle(marker)}
+                      aria-label={`Select ${marker}`}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium text-foreground leading-tight mb-1">
+                        {marker}
+                      </div>
+                      {markerInfo && (
+                        <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+                          <span className="flex items-center gap-1">
+                            <span className="font-medium">Lab:</span> {markerInfo.lab}
+                          </span>
+                          <span className="text-muted-foreground">•</span>
+                          <span className="flex items-center gap-1">
+                            <span className="font-medium">Seller:</span> {markerInfo.seller}
+                          </span>
+                          <span className="text-muted-foreground">•</span>
+                          <span className="font-medium text-primary">${markerInfo.price}</span>
+                        </div>
+                      )}
+                    </div>
+                  </label>
+                );
+              })}
             </div>
           </TabsContent>
         </Tabs>
