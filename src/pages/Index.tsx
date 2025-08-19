@@ -89,29 +89,29 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5">
-        <div className="mx-auto max-w-7xl px-4 py-12">
+      <header className="border-b bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 sticky top-0 z-40 backdrop-blur-sm">
+        <div className="mx-auto max-w-7xl px-4 py-6 md:py-12">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-3 md:mb-4">
               Save Money on Lab Tests
             </h1>
-            <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
+            <p className="text-base md:text-xl text-muted-foreground mb-4 md:mb-6 leading-relaxed px-2">
               Find the most cost-effective lab panels for your health markers.
             </p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-              <span>✓ 270+ Tests</span>
-              <span>✓ Trusted Labs</span>
-              <span>✓ Instant Optimization</span>
+            <div className="flex flex-wrap justify-center gap-2 md:gap-4 text-xs md:text-sm text-muted-foreground mb-3 md:mb-4">
+              <span className="bg-muted/50 px-2 py-1 rounded-full">✓ 270+ Tests</span>
+              <span className="bg-muted/50 px-2 py-1 rounded-full">✓ Trusted Labs</span>
+              <span className="bg-muted/50 px-2 py-1 rounded-full">✓ Instant Optimization</span>
             </div>
-            <div className="mt-4 flex items-center justify-center gap-4">
-              <p className="text-xs text-muted-foreground">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 md:gap-4 text-xs text-muted-foreground">
+              <p>
                 Pricing data last updated: {lastUpdated}
               </p>
               <Button
                 onClick={refreshData}
                 variant="ghost"
                 size="sm"
-                className="text-xs h-6 px-2"
+                className="text-xs h-7 px-3 hover:bg-muted/80"
               >
                 <RefreshCw className="h-3 w-3 mr-1" />
                 Refresh
@@ -121,9 +121,9 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 py-8">
-        <div className="grid gap-8 lg:grid-cols-4">
-          <div className="lg:col-span-3 space-y-8">
+      <main className="mx-auto max-w-7xl px-4 py-4 md:py-8">
+        <div className="grid gap-4 md:gap-8 lg:grid-cols-4">
+          <div className="lg:col-span-3 space-y-4 md:space-y-8">
             <MarkerSelector 
               selected={selected}
               onToggle={toggleMarker}
@@ -137,7 +137,7 @@ const Index = () => {
             />
           </div>
 
-          <aside className="lg:col-span-1">
+          <aside className="lg:col-span-1 lg:sticky lg:top-24 lg:h-fit">
             <InfoSidebar />
           </aside>
         </div>

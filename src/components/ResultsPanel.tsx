@@ -13,13 +13,13 @@ interface ResultsPanelProps {
 export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
   if (selected.length === 0) {
     return (
-      <Card className="p-8 text-center">
+      <Card className="p-6 md:p-8 text-center">
         <div className="max-w-md mx-auto space-y-4">
           <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
             <DollarSign className="h-8 w-8 text-muted-foreground" />
           </div>
-          <h3 className="text-xl font-semibold text-foreground">Ready to Save on Lab Tests?</h3>
-          <p className="text-muted-foreground">
+          <h3 className="text-lg md:text-xl font-semibold text-foreground">Ready to Save on Lab Tests?</h3>
+          <p className="text-muted-foreground text-sm md:text-base">
             Select tests above to see optimized pricing.
           </p>
         </div>
@@ -30,28 +30,28 @@ export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
   return (
     <div className="space-y-6">
       {/* Cost Summary */}
-      <Card className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <Card className="p-4 md:p-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           <div className="text-center md:text-left">
-            <div className="text-2xl font-bold text-primary">${optimized.totalWithDrawFees.toFixed(2)}</div>
-            <div className="text-sm text-muted-foreground">Optimized Total</div>
+            <div className="text-xl md:text-2xl font-bold text-primary">${optimized.totalWithDrawFees.toFixed(2)}</div>
+            <div className="text-xs md:text-sm text-muted-foreground">Optimized Total</div>
           </div>
           
           <div className="text-center">
-            <div className="text-lg font-semibold text-muted-foreground line-through">
+            <div className="text-base md:text-lg font-semibold text-muted-foreground line-through">
               ${optimized.individualCost.toFixed(2)}
             </div>
-            <div className="text-sm text-muted-foreground">If Bought Separately</div>
+            <div className="text-xs md:text-sm text-muted-foreground">If Bought Separately</div>
           </div>
           
           <div className="text-center md:text-right">
             <div className="flex items-center justify-center md:justify-end gap-2">
               <TrendingDown className="h-4 w-4 text-success" />
-              <span className="text-lg font-semibold text-success">
+              <span className="text-base md:text-lg font-semibold text-success">
                 ${optimized.savings.toFixed(2)} saved
               </span>
             </div>
-            <div className="text-sm text-muted-foreground">
+            <div className="text-xs md:text-sm text-muted-foreground">
               {optimized.individualCost > 0 ? 
                 Math.round((optimized.savings / optimized.individualCost) * 100) : 0}% savings
             </div>
@@ -60,8 +60,8 @@ export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
       </Card>
 
       {/* Panel Recommendations */}
-      <Card className="p-6">
-        <h2 className="text-xl font-semibold text-foreground mb-4">Recommended Lab Panels</h2>
+      <Card className="p-4 md:p-6">
+        <h2 className="text-lg md:text-xl font-semibold text-foreground mb-4">Recommended Lab Panels</h2>
         
         {optimized.chosen.length === 0 ? (
           <div className="text-center py-8">
@@ -112,11 +112,11 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
   const seller = panel.seller || 'Lab Provider';
   
   return (
-    <div className="border border-border rounded-lg p-4 hover:shadow-soft transition-shadow">
+    <div className="border border-border rounded-lg p-4 md:p-4 hover:shadow-soft transition-shadow">
       <div className="space-y-4">
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
           <div className="flex-1">
-            <div className="flex items-center gap-3 mb-2">
+            <div className="flex flex-wrap items-center gap-2 mb-3">
               <Badge variant="default" className="text-xs px-2 py-1">
                 Panel {index + 1}
               </Badge>
@@ -127,19 +127,19 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
                 Seller: {seller}
               </Badge>
             </div>
-            <h3 className="font-semibold text-foreground text-lg">{panel.name}</h3>
+            <h3 className="font-semibold text-foreground text-base md:text-lg mb-2">{panel.name}</h3>
             {panel.description && (
-              <p className="text-sm text-muted-foreground mt-1">{panel.description}</p>
+              <p className="text-sm text-muted-foreground">{panel.description}</p>
             )}
           </div>
           
-          <div className="text-right">
-            <div className="text-xl font-bold text-foreground">${panel.price}</div>
+          <div className="text-center sm:text-right sm:shrink-0">
+            <div className="text-lg md:text-xl font-bold text-foreground">${panel.price}</div>
             <div className="text-xs text-muted-foreground">
               + ${panel.drawFee} draw fee
             </div>
             <div className="text-sm font-medium text-muted-foreground">
-              Panel Total: ${(panel.price + panel.drawFee).toFixed(2)}
+              Total: ${(panel.price + panel.drawFee).toFixed(2)}
             </div>
           </div>
         </div>
@@ -174,12 +174,12 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
           )}
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-center sm:justify-end">
           <a
             href={panel.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md transition-colors font-medium text-sm no-underline"
+            className="inline-flex items-center gap-2 px-4 md:px-6 py-3 md:py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md transition-colors font-medium text-sm md:text-base no-underline w-full sm:w-auto justify-center"
           >
             Order from {seller}
             <ExternalLink className="h-4 w-4" />
