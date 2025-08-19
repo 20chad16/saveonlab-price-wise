@@ -67,7 +67,7 @@
   {
     "provider": "Quest Diagnostics",
     "name": "Testosterone, Free (Equilibrium Dialysis) and Total, MS",
-    "price": 69,
+    "price": 89,
     "drawFee": null,
     "markers": [
       "Testosterone Total (MS)",
@@ -78,7 +78,7 @@
   {
     "provider": "Quest Diagnostics, Lab Corp",
     "name": "Testosterone Total",
-    "price": 49,
+    "price": 69,
     "drawFee": null,
     "markers": [
       "Testosterone Total"
