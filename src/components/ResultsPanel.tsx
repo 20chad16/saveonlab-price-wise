@@ -175,26 +175,40 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
         </div>
 
         <div className="flex justify-end">
-          <a
-            href={panel.url}
-            target="_blank"
-            rel="nofollow sponsored noopener"
+          <button
             className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md transition-colors font-medium text-sm"
             onClick={(e) => {
               console.log('🔗 ORDER BUTTON CLICKED:', { 
                 panelName: panel.name, 
                 url: panel.url,
-                seller: seller 
+                seller: seller,
+                urlType: typeof panel.url,
+                urlLength: panel.url?.length
               });
+              
               if (!panel.url) {
-                e.preventDefault();
                 console.error('❌ No URL found for panel:', panel);
+                return;
+              }
+              
+              console.log('🚀 Opening URL:', panel.url);
+              try {
+                const newWindow = window.open(panel.url, '_blank', 'noopener,noreferrer');
+                if (!newWindow) {
+                  console.error('❌ Popup blocked or failed to open');
+                  // Fallback: try to navigate in same tab
+                  window.location.href = panel.url;
+                } else {
+                  console.log('✅ Successfully opened new window');
+                }
+              } catch (error) {
+                console.error('❌ Error opening URL:', error);
               }
             }}
           >
             Order from {seller}
             <ExternalLink className="h-4 w-4" />
-          </a>
+          </button>
         </div>
       </div>
     </div>
