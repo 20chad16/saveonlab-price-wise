@@ -114,7 +114,9 @@ export type Marker =
   | "TPO Antibodies"
   | "Thyroglobulin Antibodies"
   | "Testosterone Total"
+  | "Testosterone Total (MS)"
   | "Testosterone Free"
+  | "Testosterone Free (Equilibrium Dialysis)"
   | "Estradiol Sensitive"
   | "DHEA-S"
   | "Cortisol"
@@ -322,7 +324,9 @@ export const markerCategories: Record<MarkerCategory, Marker[]> = {
     "TPO Antibodies",
     "Thyroglobulin Antibodies",
     "Testosterone Total",
-    "Testosterone Free", 
+    "Testosterone Total (MS)",
+    "Testosterone Free",
+    "Testosterone Free (Equilibrium Dialysis)",
     "Estradiol Sensitive",
     "DHEA-S",
     "Cortisol",
@@ -503,6 +507,7 @@ export const markers: Marker[] = Object.values(markerCategories).flat();
 export interface Panel {
   id: string;
   provider: string;
+  seller?: string;
   name: string;
   price: number; // USD
   drawFee: number; // USD - lab draw fee

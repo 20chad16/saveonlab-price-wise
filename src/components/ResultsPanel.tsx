@@ -108,10 +108,8 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
   const relevantMarkers = panel.markers.filter(marker => selected.includes(marker));
   const additionalMarkers = panel.markers.filter(marker => !selected.includes(marker));
   
-  // Extract seller from URL
-  const seller = panel.url?.includes('ultalabtests.com') ? 'Ulta Lab Tests' : 
-                panel.url?.includes('questdirect.com') ? 'Quest Direct' : 
-                'Lab Provider';
+  // Use seller from panel data
+  const seller = panel.seller || 'Lab Provider';
   
   return (
     <div className="border border-border rounded-lg p-4 hover:shadow-soft transition-shadow">
