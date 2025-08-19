@@ -74,7 +74,7 @@ export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
         ) : (
           <div className="space-y-4">
             {optimized.chosen.map((panel, index) => (
-              <PanelCard key={panel.id} panel={panel} index={index} selected={selected} />
+              <PanelCard key={`${panel.name}-${index}`} panel={panel} index={index} selected={selected} />
             ))}
             
             {optimized.uncovered.length > 0 && (
@@ -176,10 +176,21 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
 
         <div className="flex justify-end">
           <a
-            href={`${panel.url}?utm_source=saveonlabtests&utm_medium=affiliate&utm_campaign=optimizer&panel=${encodeURIComponent(panel.name)}&markers=${encodeURIComponent(selected.join(","))}`}
+            href={panel.url}
             target="_blank"
             rel="nofollow sponsored noopener"
             className="inline-flex"
+            onClick={(e) => {
+              console.log('🔗 ORDER BUTTON CLICKED:', { 
+                panelName: panel.name, 
+                url: panel.url,
+                seller: seller 
+              });
+              if (!panel.url) {
+                e.preventDefault();
+                console.error('❌ No URL found for panel:', panel);
+              }
+            }}
           >
             <Button className="gap-2">
               Order from {seller}
