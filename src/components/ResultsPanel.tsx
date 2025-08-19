@@ -179,7 +179,7 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
             href={panel.url}
             target="_blank"
             rel="nofollow sponsored noopener"
-            className="inline-flex"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md transition-colors font-medium text-sm"
             onClick={(e) => {
               console.log('🔗 ORDER BUTTON CLICKED:', { 
                 panelName: panel.name, 
@@ -192,10 +192,8 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
               }
             }}
           >
-            <Button className="gap-2">
-              Order from {seller}
-              <ExternalLink className="h-4 w-4" />
-            </Button>
+            Order from {seller}
+            <ExternalLink className="h-4 w-4" />
           </a>
         </div>
       </div>
