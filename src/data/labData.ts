@@ -1309,31 +1309,43 @@ export type OptimizeResult = {
   covered: Set<Marker>;
   uncovered: Marker[];
   savings: number;
-  individualCost: number;
+  marketComparison: number;
 };
 
-function calculateIndividualCost(selected: Marker[], panelsData?: Panel[]): number {
-  const panelsToUse = panelsData || panels;
+// Market average prices for individual tests (realistic retail pricing)
+const marketPrices: Record<string, number> = {
+  "Testosterone Total": 89,
+  "Testosterone Total (MS)": 95,
+  "Testosterone Free": 85,
+  "Testosterone Free (Equilibrium Dialysis)": 120,
+  "PSA Total": 65,
+  "TSH": 75,
+  "Free T4": 85,
+  "Free T3": 90,
+  "Hemoglobin A1c": 55,
+  "Vitamin D 25-OH": 65,
+  "CBC": 45,
+  "CMP": 85,
+  "Lipid Panel": 75,
+  "Vitamin B12": 85,
+  "Folate": 80,
+  "Ferritin": 70,
+  "hs-CRP": 65,
+  // Add more as needed
+};
+
+function calculateMarketComparison(selected: Marker[]): number {
+  const standardDrawFee = 35; // Typical draw fee
   let total = 0;
-  const drawFees = new Set<string>();
-
-  // For each marker, find cheapest single-marker panel
+  
   for (const marker of selected) {
-    const cheapest = panelsToUse
-      .filter(p => p.markers.includes(marker))
-      .reduce((min, p) => p.price < min.price ? p : min, panelsToUse[0]);
-    
-    if (cheapest) {
-      total += cheapest.price;
-      drawFees.add(cheapest.provider);
-    }
+    // Use market price if available, otherwise estimate based on complexity
+    const marketPrice = marketPrices[marker] || 75; // default estimate
+    total += marketPrice;
   }
-
-  // Add unique draw fees (one per provider)
-  for (const provider of drawFees) {
-    const providerPanel = panelsToUse.find(p => p.provider === provider);
-    if (providerPanel) total += providerPanel.drawFee;
-  }
+  
+  // Add draw fee (assuming one visit for comparison)
+  total += standardDrawFee;
   
   return total;
 }
@@ -1345,8 +1357,8 @@ export function optimizePanels(selected: Marker[], panelsData?: Panel[]): Optimi
   const chosen: Panel[] = [];
   const providerDrawFees = new Set<string>();
 
-  // Calculate cost if buying individually
-  const individualCost = calculateIndividualCost(selected, panelsToUse);
+  // Calculate market comparison cost
+  const marketComparison = calculateMarketComparison(selected);
 
   // Panels can only help if they cover at least one desired and uncovered marker
   const candidates = panelsToUse.slice();
@@ -1395,7 +1407,7 @@ export function optimizePanels(selected: Marker[], panelsData?: Panel[]): Optimi
   
   const totalWithDrawFees = panelTotal + drawFeeTotal;
   const uncovered = Array.from(desired).filter((m) => !covered.has(m));
-  const savings = Math.max(0, individualCost - totalWithDrawFees);
+  const savings = Math.max(0, marketComparison - totalWithDrawFees);
 
   return { 
     chosen, 
@@ -1404,6 +1416,6 @@ export function optimizePanels(selected: Marker[], panelsData?: Panel[]): Optimi
     covered, 
     uncovered, 
     savings,
-    individualCost
+    marketComparison
   };
 }

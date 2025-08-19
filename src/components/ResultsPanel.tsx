@@ -34,27 +34,42 @@ export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           <div className="text-center md:text-left">
             <div className="text-xl md:text-2xl font-bold text-primary">${optimized.totalWithDrawFees.toFixed(2)}</div>
-            <div className="text-xs md:text-sm text-muted-foreground">Optimized Total</div>
+            <div className="text-xs md:text-sm text-muted-foreground">Optimized Price</div>
           </div>
           
           <div className="text-center">
-            <div className="text-base md:text-lg font-semibold text-foreground">
-              {optimized.chosen.reduce((total, panel) => total + panel.markers.filter(m => !selected.includes(m)).length, 0)} bonus tests
+            <div className="text-base md:text-lg font-semibold text-muted-foreground line-through">
+              ${optimized.marketComparison.toFixed(2)}
             </div>
-            <div className="text-xs md:text-sm text-muted-foreground">Additional Tests Included</div>
+            <div className="text-xs md:text-sm text-muted-foreground">Typical Market Price</div>
           </div>
           
           <div className="text-center md:text-right">
             <div className="flex items-center justify-center md:justify-end gap-2">
+              <TrendingDown className="h-4 w-4 text-success" />
               <span className="text-base md:text-lg font-semibold text-success">
-                {optimized.chosen.length} lab order{optimized.chosen.length !== 1 ? 's' : ''}
+                ${optimized.savings.toFixed(2)} saved
               </span>
             </div>
             <div className="text-xs md:text-sm text-muted-foreground">
-              Convenient ordering
+              {optimized.marketComparison > 0 ? 
+                Math.round((optimized.savings / optimized.marketComparison) * 100) : 0}% savings
             </div>
           </div>
         </div>
+        
+        {optimized.chosen.reduce((total, panel) => total + panel.markers.filter(m => !selected.includes(m)).length, 0) > 0 && (
+          <div className="mt-4 pt-4 border-t border-border">
+            <div className="text-center">
+              <div className="text-base font-semibold text-success">
+                🎁 Plus {optimized.chosen.reduce((total, panel) => total + panel.markers.filter(m => !selected.includes(m)).length, 0)} bonus tests included free!
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                Additional tests at no extra cost
+              </div>
+            </div>
+          </div>
+        )}
       </Card>
 
       {/* Panel Recommendations */}
