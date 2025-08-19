@@ -175,51 +175,15 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
         </div>
 
         <div className="flex justify-end">
-          <button
-            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md transition-colors font-medium text-sm"
-            onClick={(e) => {
-              console.log('🔗 ORDER BUTTON CLICKED:', { 
-                panelName: panel.name, 
-                url: panel.url,
-                seller: seller,
-                urlType: typeof panel.url,
-                urlLength: panel.url?.length
-              });
-              
-              if (!panel.url) {
-                console.error('❌ No URL found for panel:', panel);
-                return;
-              }
-              
-              console.log('🚀 Opening URL in parent window:', panel.url);
-              try {
-                // Try to open in parent window (works from iframe)
-                if (window.parent && window.parent !== window) {
-                  console.log('📋 Opening in parent window');
-                  window.parent.open(panel.url, '_blank');
-                } else {
-                  // Fallback for non-iframe context
-                  console.log('📋 Opening in current window context');
-                  window.open(panel.url, '_blank', 'noopener,noreferrer');
-                }
-              } catch (error) {
-                console.error('❌ Error opening URL:', error);
-                // Last resort: try to navigate parent window
-                try {
-                  if (window.parent) {
-                    window.parent.location.href = panel.url;
-                  } else {
-                    window.location.href = panel.url;
-                  }
-                } catch (navError) {
-                  console.error('❌ Navigation also failed:', navError);
-                }
-              }
-            }}
+          <a
+            href={panel.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md transition-colors font-medium text-sm no-underline"
           >
             Order from {seller}
             <ExternalLink className="h-4 w-4" />
-          </button>
+          </a>
         </div>
       </div>
     </div>
