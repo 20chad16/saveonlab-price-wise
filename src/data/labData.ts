@@ -1312,39 +1312,33 @@ export type OptimizeResult = {
   marketComparison: number;
 };
 
-// Market average prices for individual tests (realistic retail pricing)
-const marketPrices: Record<string, number> = {
-  "Testosterone Total": 89,
-  "Testosterone Total (MS)": 95,
-  "Testosterone Free": 85,
-  "Testosterone Free (Equilibrium Dialysis)": 120,
-  "PSA Total": 65,
-  "TSH": 75,
-  "Free T4": 85,
-  "Free T3": 90,
-  "Hemoglobin A1c": 55,
-  "Vitamin D 25-OH": 65,
-  "CBC": 45,
-  "CMP": 85,
-  "Lipid Panel": 75,
-  "Vitamin B12": 85,
-  "Folate": 80,
-  "Ferritin": 70,
-  "hs-CRP": 65,
-  // Add more as needed
-};
-
-function calculateMarketComparison(selected: Marker[]): number {
-  const standardDrawFee = 35; // Typical draw fee
+function calculateMarketComparison(selected: Marker[], panelsData?: Panel[]): number {
+  const panelsToUse = panelsData || panels;
+  const standardDrawFee = 35; // Average draw fee from our data
   let total = 0;
   
   for (const marker of selected) {
-    // Use market price if available, otherwise estimate based on complexity
-    const marketPrice = marketPrices[marker] || 75; // default estimate
-    total += marketPrice;
+    // Find all panels that contain this marker
+    const relevantPanels = panelsToUse.filter(p => p.markers.includes(marker));
+    
+    if (relevantPanels.length > 0) {
+      // Use average price (or median) from actual market data, not the cheapest
+      const prices = relevantPanels.map(p => p.price);
+      prices.sort((a, b) => a - b);
+      
+      // Use median price as "typical market price"
+      const medianPrice = prices.length % 2 === 0 
+        ? (prices[prices.length / 2 - 1] + prices[prices.length / 2]) / 2
+        : prices[Math.floor(prices.length / 2)];
+      
+      total += medianPrice;
+    } else {
+      // Fallback if no panels found for this marker
+      total += 75; // reasonable estimate
+    }
   }
   
-  // Add draw fee (assuming one visit for comparison)
+  // Add draw fee
   total += standardDrawFee;
   
   return total;
