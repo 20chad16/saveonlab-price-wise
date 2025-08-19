@@ -38,22 +38,20 @@ export function ResultsPanel({ selected, optimized }: ResultsPanelProps) {
           </div>
           
           <div className="text-center">
-            <div className="text-base md:text-lg font-semibold text-muted-foreground line-through">
-              ${optimized.individualCost.toFixed(2)}
+            <div className="text-base md:text-lg font-semibold text-foreground">
+              {optimized.chosen.reduce((total, panel) => total + panel.markers.filter(m => !selected.includes(m)).length, 0)} bonus tests
             </div>
-            <div className="text-xs md:text-sm text-muted-foreground">If Bought Separately</div>
+            <div className="text-xs md:text-sm text-muted-foreground">Additional Tests Included</div>
           </div>
           
           <div className="text-center md:text-right">
             <div className="flex items-center justify-center md:justify-end gap-2">
-              <TrendingDown className="h-4 w-4 text-success" />
               <span className="text-base md:text-lg font-semibold text-success">
-                ${optimized.savings.toFixed(2)} saved
+                {optimized.chosen.length} lab order{optimized.chosen.length !== 1 ? 's' : ''}
               </span>
             </div>
             <div className="text-xs md:text-sm text-muted-foreground">
-              {optimized.individualCost > 0 ? 
-                Math.round((optimized.savings / optimized.individualCost) * 100) : 0}% savings
+              Convenient ordering
             </div>
           </div>
         </div>
@@ -160,16 +158,19 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
           
           {additionalMarkers.length > 0 && (
             <div>
-              <h4 className="text-sm font-medium text-muted-foreground mb-2">
-                Bonus Tests Included ({additionalMarkers.length})
+              <h4 className="text-sm font-medium text-success mb-2">
+                🎁 Bonus Tests Included ({additionalMarkers.length})
               </h4>
               <div className="flex flex-wrap gap-1.5">
                 {additionalMarkers.map((marker) => (
-                  <Badge key={marker} variant="outline" className="text-xs">
+                  <Badge key={marker} variant="outline" className="text-xs border-success text-success">
                     {marker}
                   </Badge>
                 ))}
               </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                These additional tests are included at no extra cost!
+              </p>
             </div>
           )}
         </div>
