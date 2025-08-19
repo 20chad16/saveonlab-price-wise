@@ -89,7 +89,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 sticky top-0 z-40 backdrop-blur-sm">
+      <header className="border-b bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5">
         <div className="mx-auto max-w-7xl px-4 py-6 md:py-12">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-3 md:mb-4">
@@ -103,19 +103,8 @@ const Index = () => {
               <span className="bg-muted/50 px-2 py-1 rounded-full">✓ Trusted Labs</span>
               <span className="bg-muted/50 px-2 py-1 rounded-full">✓ Instant Optimization</span>
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 md:gap-4 text-xs text-muted-foreground">
-              <p>
-                Pricing data last updated: {lastUpdated}
-              </p>
-              <Button
-                onClick={refreshData}
-                variant="ghost"
-                size="sm"
-                className="text-xs h-7 px-3 hover:bg-muted/80"
-              >
-                <RefreshCw className="h-3 w-3 mr-1" />
-                Refresh
-              </Button>
+            <div className="text-xs text-muted-foreground">
+              <p>Pricing data last updated: {lastUpdated}</p>
             </div>
           </div>
         </div>
@@ -137,7 +126,7 @@ const Index = () => {
             />
           </div>
 
-          <aside className="lg:col-span-1 lg:sticky lg:top-24 lg:h-fit">
+          <aside className="lg:col-span-1">
             <InfoSidebar />
           </aside>
         </div>
