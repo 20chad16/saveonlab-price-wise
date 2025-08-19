@@ -191,18 +191,29 @@ function PanelCard({ panel, index, selected }: { panel: Panel; index: number; se
                 return;
               }
               
-              console.log('🚀 Opening URL:', panel.url);
+              console.log('🚀 Opening URL in parent window:', panel.url);
               try {
-                const newWindow = window.open(panel.url, '_blank', 'noopener,noreferrer');
-                if (!newWindow) {
-                  console.error('❌ Popup blocked or failed to open');
-                  // Fallback: try to navigate in same tab
-                  window.location.href = panel.url;
+                // Try to open in parent window (works from iframe)
+                if (window.parent && window.parent !== window) {
+                  console.log('📋 Opening in parent window');
+                  window.parent.open(panel.url, '_blank');
                 } else {
-                  console.log('✅ Successfully opened new window');
+                  // Fallback for non-iframe context
+                  console.log('📋 Opening in current window context');
+                  window.open(panel.url, '_blank', 'noopener,noreferrer');
                 }
               } catch (error) {
                 console.error('❌ Error opening URL:', error);
+                // Last resort: try to navigate parent window
+                try {
+                  if (window.parent) {
+                    window.parent.location.href = panel.url;
+                  } else {
+                    window.location.href = panel.url;
+                  }
+                } catch (navError) {
+                  console.error('❌ Navigation also failed:', navError);
+                }
               }
             }}
           >
