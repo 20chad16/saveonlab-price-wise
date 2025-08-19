@@ -1,17 +1,15 @@
 [
   {
-    "id": "testosterone-total-test",
     "provider": "Quest Diagnostics",
-    "name": "Testosterone Total Test",
+    "name": "Testosterone Total, MS",
     "price": 52.95,
     "drawFee": null,
     "markers": [
-      "Testosterone Total"
+      "Testosterone Total (MS)"
     ],
     "url": "https://www.ultalabtests.com/test/testosterone-total-test"
   },
   {
-    "id": "testosterone-replacement-therapy-trt-panel",
     "provider": "Quest Diagnostics",
     "name": "Testosterone Replacement Therapy (TRT) Panel",
     "price": 90.95,
@@ -55,5 +53,36 @@
       "Testosterone Total"
     ],
     "url": "https://www.ultalabtests.com/test/testosterone-replacement-therapy-trt-panel"
+  },
+  {
+    "provider": "Quest Diagnostics",
+    "name": "Testosterone Total, MS",
+    "price": 53,
+    "drawFee": null,
+    "markers": [
+      "Testosterone Total (MS)"
+    ],
+    "url": "https://www.jasonhealth.com/test/15983-testosterone-total-ms"
+  },
+  {
+    "provider": "Quest Diagnostics",
+    "name": "Testosterone, Free (Equilibrium Dialysis) and Total, MS",
+    "price": 69,
+    "drawFee": null,
+    "markers": [
+      "Testosterone Total (MS)",
+      "Testosterone Free (Equilibrium Dialysis)"
+    ],
+    "url": "https://www.discountedlabs.com/testosterone-free-dialysis-and-total-ms"
+  },
+  {
+    "provider": "Quest Diagnostics, Lab Corp",
+    "name": "Testosterone Total",
+    "price": 49,
+    "drawFee": null,
+    "markers": [
+      "Testosterone Total"
+    ],
+    "url": "https://www.walkinlab.com/products/view/testosterone-total-blood-test-male-only"
   }
 ]
