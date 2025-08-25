@@ -1,7 +1,6 @@
 [
   {
     "provider": "Quest Diagnostics",
-    "seller": "Ulta Labs",
     "name": "Testosterone Total, MS",
     "price": 52.95,
     "drawFee": null,
@@ -12,7 +11,6 @@
   },
   {
     "provider": "Quest Diagnostics",
-    "seller": "Ulta Labs",
     "name": "Testosterone Replacement Therapy (TRT) Panel",
     "price": 90.95,
     "drawFee": null,
@@ -58,7 +56,6 @@
   },
   {
     "provider": "Quest Diagnostics",
-    "seller": "Jason Labs",
     "name": "Testosterone Total, MS",
     "price": 53,
     "drawFee": null,
@@ -69,9 +66,8 @@
   },
   {
     "provider": "Quest Diagnostics",
-    "seller": "Discounted Labs",
     "name": "Testosterone, Free (Equilibrium Dialysis) and Total, MS",
-    "price": 89,
+    "price": 69,
     "drawFee": null,
     "markers": [
       "Testosterone Total (MS)",
@@ -81,9 +77,8 @@
   },
   {
     "provider": "Quest Diagnostics, Lab Corp",
-    "seller": "Walk In Lab",
     "name": "Testosterone Total",
-    "price": 59,
+    "price": 69,
     "drawFee": null,
     "markers": [
       "Testosterone Total"
