@@ -58,12 +58,21 @@ class LabDataService {
         throw new Error(`Failed to fetch data from GitHub. Status codes: markers=${markersRes.status}, panels=${panelsRes.status}, categories=${categoriesRes.status}, lastUpdated=${lastUpdatedRes.status}`);
       }
 
-      const [markers, panels, markerCategories, lastUpdatedData] = await Promise.all([
+      const [markers, rawPanels, markerCategories, lastUpdatedData] = await Promise.all([
         markersRes.json(),
         panelsRes.json(),
         categoriesRes.json(),
         lastUpdatedRes.json()
       ]);
+
+      // Parse panels - handle markers that might be JSON strings
+      const panels = rawPanels.map((panel: any) => ({
+        ...panel,
+        markers: typeof panel.markers === 'string' ? JSON.parse(panel.markers) : panel.markers,
+        drawFee: panel.drawFee ?? 6.95, // Default draw fee if null
+        provider: panel.provider || 'Quest Diagnostics',
+        seller: panel.seller || 'Ulta Lab Tests'
+      }));
 
       return {
         markers,
