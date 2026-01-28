@@ -129,7 +129,7 @@
     "name": "Albumin Random Urine Test",
     "price": 26.95,
     "drawFee": null,
-    "markers": "[\"11-Deoxycortisol (LC/MS)\",\"17 Hydroxypregnenolone (LC/MS)\",\"17-Hydroxyprogesterone (LC/MS)\",\"Absolute Band Neutrophils\",\"Absolute Basophils\",\"Absolute Blasts\",\"Absolute Eosinophils\",\"Absolute Lymphocytes\",\"Absolute Metamyelocytes\",\"Absolute Monocytes\",\"ANA Screen\",\"Androstenedione\",\"Anti-Mullerian Hormone\",\"CBC\",\"CMP\",\"Cortisol, Total\",\"DHEA-S\",\"Dihydrotestosterone (DHT), LC/MS/MS\",\"Erythrocyte Sedimentation Rate\",\"Estradiol\",\"Estradiol Sensitive\",\"Estrone (LC/MS)\",\"Ferritin\",\"FSH\",\"Hematocrit\",\"Hemoglobin\",\"Hemoglobin A1c\",\"Homocysteine\",\"Hs-CRP\",\"IGF-1\",\"Insulin\",\"Iron\",\"Iron and Total Iron Binding Capacity (TIBC)\",\"LH\",\"Lipid Panel\",\"Lipoprotein (A)\",\"Magnesium\",\"Methylmalonic Acid\",\"Progesterone\",\"Prolactin\",\"PSA\",\"SHBG\",\"T3, Free\",\"T4, Free\",\"Testosterone Free\",\"Testosterone Free (Equilibrium Dialysis)\",\"Testosterone Total\",\"Testosterone Total (MS)\",\"TIBC\",\"TSH\",\"Uric Acid\",\"Urinalysis Complete\",\"Vitamin B12\",\"Vitamin D 25-OH\",\"Zinc\"]",
+    "markers": "[\"Albumin\"]",
     "url": "https://www.ultalabtests.com/test/albumin-random-urine-test"
   },
   {
