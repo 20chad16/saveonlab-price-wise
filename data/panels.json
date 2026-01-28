@@ -14,10 +14,87 @@
     "url": "https://www.ultalabtests.com/test/hair-loss-alopecia-blood-test-panel"
   },
   {
+    "name": "Hair Loss Test (DHT)",
+    "price": 54.95,
+    "drawFee": null,
+    "markers": "",
+    "url": "https://www.ultalabtests.com/test/hair-loss-test-dht"
+  },
+  {
+    "name": "Male Hormone Panel",
+    "price": 498,
+    "drawFee": null,
+    "markers": "[\"11-Deoxycortisol (LC/MS)\",\"17 Hydroxypregnenolone (LC/MS)\",\"17-Hydroxyprogesterone (LC/MS)\",\"Absolute Band Neutrophils\",\"Absolute Basophils\",\"Absolute Blasts\",\"Absolute Eosinophils\",\"Absolute Lymphocytes\",\"Absolute Metamyelocytes\",\"Absolute Monocytes\",\"ANA Screen\",\"Androstenedione\",\"Anti-Mullerian Hormone\",\"CBC\",\"CMP\",\"Cortisol, Total\",\"DHEA-S\",\"Dihydrotestosterone (DHT), LC/MS/MS\",\"Erythrocyte Sedimentation Rate\",\"Estradiol\",\"Estradiol Sensitive\",\"Estrone (LC/MS)\",\"Ferritin\",\"FSH\",\"Hematocrit\",\"Hemoglobin\",\"Hemoglobin A1c\",\"Homocysteine\",\"Hs-CRP\",\"IGF-1\",\"Insulin\",\"Iron\",\"Iron and Total Iron Binding Capacity (TIBC)\",\"LH\",\"Lipid Panel\",\"Lipoprotein (A)\",\"Magnesium\",\"Methylmalonic Acid\",\"Progesterone\",\"Prolactin\",\"PSA\",\"SHBG\",\"T3, Free\",\"T4, Free\",\"Testosterone Free\",\"Testosterone Free (Equilibrium Dialysis)\",\"Testosterone Total\",\"Testosterone Total (MS)\",\"TIBC\",\"TSH\",\"Uric Acid\",\"Urinalysis Complete\",\"Vitamin B12\",\"Vitamin D 25-OH\",\"Zinc\"]",
+    "url": "https://www.ultalabtests.com/test/male-hormone-panel"
+  },
+  {
+    "name": "",
+    "price": 353.95,
+    "drawFee": null,
+    "markers": "[\"Cortisol AM\",\"DHEA-S\",\"Ferritin\",\"Hemoglobin A1c\",\"Hs-CRP\",\"Lipid Panel\",\"SHBG\",\"T3 Total\",\"T4 Total\",\"Testosterone Total\",\"TSH\",\"Vitamin B12\",\"Vitamin D 25-OH\"]",
+    "url": "https://www.ultalabtests.com/test/male-panel-base-tests"
+  },
+  {
     "name": "",
     "price": 485.95,
     "drawFee": null,
     "markers": "[\"11-Deoxycortisol (LC/MS)\",\"17 Hydroxypregnenolone (LC/MS)\",\"17-Hydroxyprogesterone (LC/MS)\",\"Absolute Band Neutrophils\",\"Absolute Basophils\",\"Absolute Blasts\",\"Absolute Eosinophils\",\"Absolute Lymphocytes\",\"Absolute Metamyelocytes\",\"Absolute Monocytes\",\"ANA Screen\",\"Anti-Mullerian Hormone\",\"CBC\",\"CMP\",\"Cortisol, Total\",\"DHEA-S\",\"Estradiol Sensitive\",\"Estrone (LC/MS)\",\"Ferritin\",\"FSH\",\"Hematocrit\",\"Hemoglobin\",\"Hemoglobin A1c\",\"Homocysteine\",\"Hs-CRP\",\"IGF-1\",\"Insulin\",\"Iron\",\"Iron and Total Iron Binding Capacity (TIBC)\",\"LH\",\"Lipid Panel\",\"Lipoprotein (A)\",\"Magnesium\",\"Prolactin\",\"PSA\",\"SHBG\",\"T3, Free\",\"T4, Free\",\"Testosterone Free\",\"Testosterone Free (Equilibrium Dialysis)\",\"Testosterone Total\",\"Testosterone Total (MS)\",\"TIBC\",\"TSH\",\"Uric Acid\",\"Urinalysis Complete\",\"Vitamin B12\",\"Vitamin D 25-OH\",\"Zinc\"]",
     "url": "https://www.ultalabtests.com/test/360-full-body-test-male-panel"
+  },
+  {
+    "name": "",
+    "price": 194.95,
+    "drawFee": null,
+    "markers": "[\"Apolipoprotein A1\",\"Apolipoprotein B\",\"Apolipoprotein B/A1 Ratio\",\"HDL Large\",\"Homocysteine\",\"Hs-CRP\",\"LDL Medium\",\"LDL Particle Number\",\"LDL Pattern\",\"LDL Peak Size\",\"LDL Small Particle\",\"Lipoprotein (A)\"]",
+    "url": "https://www.ultalabtests.com/test/5-key-heart-test-panel-you-re-probably-not-getting"
+  },
+  {
+    "name": "Activated Protein C-Resistance Test",
+    "price": 63.95,
+    "drawFee": null,
+    "markers": "",
+    "url": "https://www.ultalabtests.com/test/activated-protein-c-resistance-test"
+  },
+  {
+    "name": "ADAMTS13 Activity Test with Reflex to Inhibitor",
+    "price": 265.95,
+    "drawFee": null,
+    "markers": "",
+    "url": "https://www.ultalabtests.com/test/adamts13-activity-with-reflex-to-inhibitor"
+  },
+  {
+    "name": "Adrenal Antibody Titer and Pattern - Reflex Test",
+    "price": 46.95,
+    "drawFee": null,
+    "markers": "",
+    "url": "https://www.ultalabtests.com/test/adrenal-antibody-titer-and-pattern-reflex-test"
+  },
+  {
+    "name": "Adrenal Female Fatigue Base Tests",
+    "price": 66.95,
+    "drawFee": null,
+    "markers": "",
+    "url": "https://www.ultalabtests.com/test/adrenal-female-fatigue-base-tests"
+  },
+  {
+    "name": "Adrenal Male Fatigue Base Tests",
+    "price": 50.95,
+    "drawFee": null,
+    "markers": "",
+    "url": "https://www.ultalabtests.com/test/adrenal-male-fatigue-base-tests"
+  },
+  {
+    "name": "Advanced Sports Performance Test - Male",
+    "price": 186.95,
+    "drawFee": null,
+    "markers": "",
+    "url": "https://www.ultalabtests.com/test/advanced-sports-performance-test-male"
+  },
+  {
+    "name": "Albumin Random Urine Test",
+    "price": 26.95,
+    "drawFee": null,
+    "markers": "",
+    "url": "https://www.ultalabtests.com/test/albumin-random-urine-test"
   }
 ]
