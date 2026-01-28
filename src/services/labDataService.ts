@@ -65,14 +65,28 @@ class LabDataService {
         lastUpdatedRes.json()
       ]);
 
-      // Parse panels - handle markers that might be JSON strings
-      const panels = rawPanels.map((panel: any) => ({
-        ...panel,
-        markers: typeof panel.markers === 'string' ? JSON.parse(panel.markers) : panel.markers,
-        drawFee: panel.drawFee ?? 6.95, // Default draw fee if null
-        provider: panel.provider || 'Quest Diagnostics',
-        seller: panel.seller || 'Ulta Lab Tests'
-      }));
+      // Parse panels - handle markers that might be JSON strings or empty
+      const panels = rawPanels.map((panel: any) => {
+        let markers: string[] = [];
+        if (typeof panel.markers === 'string' && panel.markers.trim() !== '') {
+          try {
+            markers = JSON.parse(panel.markers);
+          } catch (e) {
+            console.warn('Failed to parse markers for panel:', panel.name, e);
+            markers = [];
+          }
+        } else if (Array.isArray(panel.markers)) {
+          markers = panel.markers;
+        }
+        
+        return {
+          ...panel,
+          markers,
+          drawFee: panel.drawFee ?? 6.95,
+          provider: panel.provider || 'Quest Diagnostics',
+          seller: panel.seller || 'Ulta Lab Tests'
+        };
+      });
 
       return {
         markers,
